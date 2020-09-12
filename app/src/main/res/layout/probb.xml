@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/Btn_Helpline"-->
+<!--        style="@style/ShapeAppearance.App.SmallComponent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:drawablePadding="5dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="Helpline"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/Btn_Precautions"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:id="@+id/Btn_Precautions"-->
+<!--        style="@style/ShapeAppearance.App.SmallComponent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:drawablePadding="5dp"-->
+<!--        android:layout_marginTop="32dp"-->
+<!--        android:padding="10dp"-->
+<!--        android:text="Precautions"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/Btn_Helpline"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/imageView2"-->
+
+<!--        />-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView2"-->
+<!--        android:layout_width="250dp"-->
+<!--        android:layout_height="250dp"-->
+<!--        android:layout_centerInParent="true"-->
+<!--        android:layout_marginTop="64sp"-->
+<!--        android:scaleType="fitXY"-->
+<!--        android:src="@drawable/facemask"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tvSymptoms" />-->
+
+    <TextView
+        android:id="@+id/tvSplash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:scrollHorizontally="true"
+        android:textAlignment="center"
+        android:text="@string/common_symptoms"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

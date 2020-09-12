@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="commitware.ayia.covid19.activities.ListActivity">
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        android:orderInCategory="101"
+        android:title="@string/action_search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/action_sort_alpha"
+        android:icon="@drawable/ic_sort_by_alpha"
+        android:title="Alphabet"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_sort_cases"
+        android:icon="@drawable/ic_sort_by_cases"
+        android:title="Total Cases"
+        app:showAsAction="never"/>
+</menu>

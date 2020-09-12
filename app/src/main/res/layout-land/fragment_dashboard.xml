@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipeView"
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:padding="16dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Location Cases"
+                    android:textAlignment="center"
+                    android:textSize="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/linear4"
+                    android:weightSum="3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNetwork">
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:id="@+id/cvTested"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        style="@style/CustomCardView"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorTested"
+                                android:text="Tested" />
+
+                            <TextView
+                                android:id="@+id/tvTested"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__"
+                                android:textColor="@color/colorTested"
+                                style="@style/ValueFontStyle"
+
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>  <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:id="@+id/cvRecovered"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCardView"
+                    android:layout_margin="7dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:padding="5dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/LabelFontStyle"
+                            android:textColor="@color/colorRecovered"
+                            android:text="Recovered" />
+
+                        <TextView
+                            android:id="@+id/tvRecovered"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="__"
+                            android:textColor="@color/colorRecovered"
+                            style="@style/ValueFontStyle"
+
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/cardViewSigns"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+                        android:layout_margin="7dp"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorCases"
+                                android:text="Cases" />
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:id="@+id/tvOne"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:textColor="@color/colorCases"
+                                style="@style/ValueFontStyle"
+                                android:text="__" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linear2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linear4">
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+                        android:layout_margin="7dp"   >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorCasesToday"
+                                android:text="Cases Today" />
+
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorCasesToday"
+                                style="@style/ValueFontStyle"
+                                android:id="@+id/tvCasesToday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+                        android:layout_margin="7dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorDeaths"
+                                android:text="Deaths" />
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:id="@+id/tvDeaths"
+                                android:textColor="@color/colorDeaths"
+                                style="@style/ValueFontStyle"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__" />
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+                        android:layout_margin="7dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorDeathsToday"
+                                android:text="Deaths Today" />
+
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorDeathsToday"
+                                style="@style/ValueFontStyle"
+
+                                android:id="@+id/tvDeathsToday"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__" />
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/linear3"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:weightSum="2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linear2"
+                    >
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+
+                        android:layout_margin="7dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorCritical"
+                                android:text="Critical" />
+
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorCritical"
+                                style="@style/ValueFontStyle"
+
+                                android:id="@+id/tvCritical"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__" />
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/CustomCardView"
+                        android:layout_margin="7dp">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                style="@style/LabelFontStyle"
+                                android:textColor="@color/colorActive"
+                                android:text="Active" />
+
+                            <TextView
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/colorActive"
+                                style="@style/ValueFontStyle"
+                                android:id="@+id/tvActive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="__" />
+                        </LinearLayout>
+
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLastUpdated"
+                    style="@style/LabelFontStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/radioFilter"
+                    app:layout_constraintStart_toEndOf="@id/tvHeading"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Last Updated\n Mon, 23 Mar 2020 1:20:30 PM" />
+                <TextView
+                    android:id="@+id/tvNetwork"
+                    style="@style/LabelFontStyle"
+                    android:textColor="@color/colorCritical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_marginTop="8sp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/tvLastUpdated"
+                    app:layout_constraintStart_toEndOf="@id/tvLastUpdated"
+                    app:layout_constraintTop_toBottomOf="@id/tvLastUpdated"
+                    android:text="@string/connect_to_internet" />
+
+                <ProgressBar
+                    android:id="@+id/progress_circular_home"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminate="true"
+                    android:indeterminateDrawable="@drawable/progress"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <RadioGroup
+                    android:id="@+id/radioFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioState"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:checked="true"
+                        android:text="state"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioCountry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp"
+                        android:text="country"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioContinent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp"
+                        android:text="continent"
+                        android:textSize="12sp" />
+
+                    <androidx.appcompat.widget.AppCompatRadioButton
+                        android:id="@+id/radioGlobal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="5dp"
+                        android:text="globe"
+                        android:textSize="12sp" />
+
+
+                </RadioGroup>
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_location_searching_black_24dp"
+        android:focusable="true" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

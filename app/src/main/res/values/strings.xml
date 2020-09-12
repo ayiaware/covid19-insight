@@ -1,0 +1,136 @@
+<resources>
+    <string name="app_name">Covid-19 Insight</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_helpline">Helpline</string>
+    <string name="title_info">Info</string>
+
+    <string name="title_news">News</string>
+    <string name="title_settings">Settings</string>
+
+    <string name="title_dashboard">Dashboard</string>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="location_header">Location</string>
+    <string name="theme_signature_title">Theme</string>
+    <string name="pref_header_about">About</string>
+
+
+    <!-- Location Preferences -->
+    <string name="state_title">Your state</string>
+    <string name="country_title">Your country</string>
+
+
+    <!-- Theme Preferences -->
+    <string name="theme_dialog_title">Change theme</string>
+
+
+    <!--About Preference -->
+    <string name="title_version">App version</string>
+    <string name="summary_about">Covid-19 Insight was made in an attempt to increase awareness towards the covid-19 pandemic. Stay safe!</string>
+    <string name="app_version">1.0</string>
+    <string name="summary_support">Got any queries or suggestions?</string>
+    <string name="title_send_feedback">Send Feedback</string>
+
+    <string name="choose_email_client">Choose email client</string>
+
+
+    <string name="common_symptoms">FEVER . HEADACHE . DRY COUGH . FATIGUE . MUSCLE PAIN . SHORTNESS OF BREATH</string>
+
+    <string name="signs_and_symptoms">signs and symptoms</string>
+
+    <string name="symptom1_heading">High Body Temperature</string>
+    <string name="symptom2_heading">Coughing and Sneezing</string>
+    <string name="symptom3_heading">Sore Throat</string>
+    <string name="symptom4_heading">Headache</string>
+    <string name="symptom5_heading">Difficulty in Breathing</string>
+
+    <string name="symptom1">High Body Temperature</string>
+    <string name="symptom2">Coughing and Sneezing</string>
+    <string name="symptom3">Sore Throat</string>
+    <string name="symptom4">Headache</string>
+    <string name="symptom5">Difficulty in Breathing</string>
+
+
+    <string name="how_its_spread">How it spreads</string>
+
+
+    <string name="infection1_heading">Droplets</string>
+    <string name="infection2_heading">Close contact</string>
+    <string name="infection3_heading">Contaminated surface</string>
+    <string name="infection1">Through respiratory droplets, when an infected person coughs or sneezes These droplets can land in the mouth or noses of people who are nearby or possibly inhaled into lungs</string>
+    <string name="infection2">Through close contact with infected person approximately within 2 metres 0 6 feet or 2 to 3 steps.This can be through hugging, kissing, hand shaking or standing close.</string>
+    <string name="infection3">By touching objects and surfaces contaminated by corona virus and then touching the mouth , nose or eyes.</string>
+
+
+    <string name="prevention">precautions </string>
+
+    <string name="prevention1_heading">Wash your hands</string>
+    <string name="prevention1">Wash your hands regularly with soap and running water for up to 20 seconds if not available, use an alcohol based sanitizer</string>
+    <string name="prevention2_heading">Avoid or reduce contact</string>
+    <string name="prevention2">Avoid shaking hands, hugging or kissing with people with flu-like symptoms.No visitors unless the person needs to be in your home</string>
+    <string name="prevention3_heading">Avoid or reduce sharing</string>
+    <string name="prevention3">Stay in a separate room and use a separate bathroom if available. Avoid sharing household items</string>
+    <string name="prevention4_heading">Disinfect Surface</string>
+    <string name="prevention4">Disinfect surfaces and clothing.Ensure surfaces in the household are cleaned and disinfected..Wash this items thoroughly after use.</string>
+
+
+    <string name="reduce_spread">Reducing spread</string>
+
+    <string name="reduce1_heading">When you cough</string>
+    <string name="reduce1">cough or sneeze into a disposable tissue or bent elbow, and wash hands immediately. Dispose the tissue in a trash or burn it</string>
+    <string name="reduce2_heading">Keep a distance</string>
+    <string name="reduce2">Person with a cough or sneezing should stay home or keep a social distance and avoid mixing with other crowds</string>
+    <string name="reduce3_heading">Maintain respiratory hygiene</string>
+    <string name="reduce3">maintain good respiratory hygiene by covering your mouth and nose while coughing and sneezing with a handkerchief, tissue. or into flexed elbow</string>
+    <string name="reduced4_heading">Wear face mask</string>
+    <string name="reduce4">Wear a face mask to prevent droplet from falling on surfaces</string>
+    <string name="reduce5_heading">Self Isolate</string>
+    <string name="reduce5">Self isolate if there is chance you might have been exposed</string>
+
+    <!--self isolation info -->
+    <string name="self_quarantine">Isolation</string>
+
+    <string name="quarantine1_heading">What is self isolation?</string>
+    <string name="quarantine1_body">Self isolation of quarantine is an act of individuals who may have been exposed to COVID-19 separating themselves for 14 days to monitor if the develop symptoms.</string>
+    <string name="quarantine2_heading">Who should self isolate?</string>
+    <string name="quarantine2_body">Anyone who has traveled within the past 14 days to a country or region with reported COVID-19 cases or has had close contact with a person showing COVID-19 symptoms.</string>
+    <string name="quarantine3_heading">Why self isolate?</string>
+    <string name="quarantine3_body">Self isolation help reduce the spread of COVID-19 and reduce the chances of infecting others. We should self isolate as a way of helping others. </string>
+    <string name="quarantine4_heading">Reporting Illness</string>
+    <string name="quarantine4_body">If you feel unwell, have a cold or a cough or fever, please call the Helpline assigned to your region , state or country.</string>
+
+
+    <string name="title_activity_list">ListActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+
+
+    <string name="daily_notif">Daily Notification</string>
+    <string name="key_daily_reminder">daily reminder key</string>
+    <string name="daily_reminder_summary">Daily Reminder Every 08:00</string>
+    <string name="daily_reminder_setup">Daily Reminder Is Setup</string>
+    <string name="daily_reminder_canceled">Daily Reminder Canceled</string>
+    <string name="notif_title">Check Your Apps, For New Updated Data</string>
+    <string name="not_update">History\'s data has not been updated</string>
+
+    <string name="read_more">Read More</string>
+
+    <string name="editor">Editor</string>
+    <string name="sourceNews">Source : </string>
+    <string name="authorNews">Author : </string>
+    <string name="dateNews">Date : </string>
+    <string name="redirect">Redirect To Web Page…</string>
+    <string name="description_unavailable">Description  is not available, please press the button below to view the news</string>
+
+
+    <string name="other_states">other states</string>
+    <string name="other_countries">other countries</string>
+    <string name="other_continents">other continents</string>
+    <string name="connect_to_internet">Connect to internet to update</string>
+    <string name="rate_app">Rate app</string>
+    <string name="rate_app_summary">Rating your experience with this app on google play store</string>
+    <string name="splash_text">Covid-19  Insight</string>
+
+</resources>

@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- Theme Preference -->
+    <string-array name="theme_entries">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>DarkTheme</item>
+        <item>LightTheme</item>
+    </string-array>
+
+
+    <string-array name="how_it_spreads">
+        <item>Droplets
+            Through respiratory droplets produced when an infected person coughs or sneezes These droplets can land in the mouth or noses of people who are nearby or possibly inhaled into lungs
+        </item>
+        <item>Close contact
+            Through close contact with infected person approximately within 2 metres 0 6 feet or 2 to 3 steps. This can be through hugging, kissing, hand shaking or standing close.
+        </item>
+        <item>Touching contaminated surfaces
+            When we touch objects and surfaces contaminated by corona virus and then touching the mouth , nose or eyes.
+        </item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#222222</color>
+    <color name="colorPrimaryDark">#111111</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="textPrimary">#FFFFFF</color>
+    <color name="textSecondary">#646464</color>
+    <color name="windowBackground">#303030</color>
+
+    <color name="textSplash">#646464</color>
+
+
+    <color name="colorCases">#999999</color>
+    <color name="colorCasesToday">#999999</color>
+
+
+    <color name="colorCritical">#FF9800</color>
+
+    <color name="colorDeathsToday">#FA4848</color>
+
+    <color name="colorActive">#43A047</color>
+
+    <!--    <color name="colorCases">#FFA000</color>-->
+
+    <!--    <color name="colorRecovered">#0288D1</color>-->
+
+    <color name="colorDeaths">#E40404</color>
+
+    <color name="colorTested">#0288D1</color>
+    <color name="colorRecovered">#32EE1D</color>
+
+
+    <color name="colorTotalConfirmed">#E40404</color>
+    <color name="colorTotalDeaths">#868686</color>
+    <color name="colorTotalRecovered">#32EE1D</color>
+
+</resources>

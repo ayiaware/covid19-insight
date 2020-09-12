@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_dashboard">
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="commitware.ayia.covid19.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/navigation_helpline"
+        android:name="commitware.ayia.covid19.ui.helpline.HelplineFragment"
+        android:label="@string/title_helpline"
+        tools:layout="@layout/fragment_helpline" />
+
+    <fragment
+        android:id="@+id/navigation_info"
+        android:name="commitware.ayia.covid19.ui.info.InfoFragment"
+        android:label="@string/title_info"
+        tools:layout="@layout/fragment_info" />
+
+    <fragment
+        android:id="@+id/navigation_news"
+        android:name="commitware.ayia.covid19.ui.news.FragmentNews"
+        android:label="@string/title_news"
+        tools:layout="@layout/fragment_news" />
+</navigation>

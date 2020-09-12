@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+   android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingBottom="16dp"
+    android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSigns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.styleMarginAll"
+        android:layout_marginBottom="0dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:cardCornerRadius="@dimen/cardRadius"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/circleImage"
+                    android:layout_width="49dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/coronavirus" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/signs_and_symptoms"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewSpread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.styleMarginAll"
+        android:layout_marginBottom="0dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:cardCornerRadius="@dimen/cardRadius"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/cardViewSpread"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSigns">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/view1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/circleImage1"
+                    android:layout_width="49dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/spread2" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/desc1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/how_its_spread"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/view1"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewPrevention"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppTheme.styleMarginAll"
+        android:layout_marginBottom="0dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:cardCornerRadius="@dimen/cardRadius"
+
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSpread">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/ivPrevention"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/circleImage3"
+                    android:layout_width="49dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/precaution" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="60dp"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:text="@string/prevention"
+                app:layout_constraintStart_toEndOf="@+id/ivPrevention"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/cardViewQuarantine"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        style="@style/AppTheme.styleMarginAll"
+        android:layout_marginBottom="0dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:cardCornerRadius="@dimen/cardRadius"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewReduce">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/view1x"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/circleImage1x"
+                    android:layout_width="49dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/stayhome" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/desc1x"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/self_quarantine"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/view1x"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardViewReduce"
+        android:layout_width="match_parent"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:focusable="true"
+        android:clickable="true"
+        style="@style/AppTheme.styleMarginAll"
+        android:layout_marginBottom="15dp"
+        app:cardElevation="@dimen/cardElevation"
+        app:cardCornerRadius="@dimen/cardRadius"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/view1v"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:elevation="12dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/circleImage1v"
+                    android:layout_width="49dp"
+                    android:layout_height="50dp"
+                    android:paddingTop="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/spread" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/desc1v"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/reduce_spread"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/view1v"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>

@@ -5,10 +5,13 @@ Note information for all states (Nigeria), all countries, all continents which i
 
 libraries
 
-json
-reftrofit
-glide
-firebase
+Json
+
+Reftrofit
+
+Glide
+
+Firebase
 
 •	Data can still be obtained if offline.
 
@@ -25,19 +28,26 @@ firebase
 FEATURES
 
 Dashboard:
+
 Shows information on covid 19 based on latest data.
 
 Info:
+
 Gives insight on covid-19. How it spreads, precautions to be taken etc. 
 
 News:
+
 Shows new update of all related to health.
 
 Helpline:
+
 Call helpline directly from app based on your state. Helpline are updated regularly
 
 Settings:
+
 Change settings related to app behavior.  
+
 Change theme from light to dark mode and vice versa.
+
 Send feedback directly to commitware email.
 

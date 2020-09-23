@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.Utils;
+package commitware.ayia.covid19.utils;
 
 import android.view.View;
 

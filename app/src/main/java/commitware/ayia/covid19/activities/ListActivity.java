@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.controllers.AppController;
 import commitware.ayia.covid19.fragments.ListActivityFragment;
 import commitware.ayia.covid19.fragments.ListDetailFragment;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
@@ -19,12 +19,12 @@ import commitware.ayia.covid19.models.CountryServer;
 import commitware.ayia.covid19.R;
 
 
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE_SETUP;
-import static commitware.ayia.covid19.Controllers.AppUtils.LOCATION_COUNTRY;
-import static commitware.ayia.covid19.Controllers.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_LOCAL;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SETUP;
+import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_COUNTRY;
+import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_STATE;
 
 public class ListActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
@@ -116,18 +116,24 @@ public class ListActivity extends AppCompatActivity implements OnFragmentInterac
                 break;
         }
 
+        Intent intent = new Intent();
+
         if(listType.equals(LIST_TYPE_SETUP))
-        {  e.putBoolean("firstStart",false);
-            e.apply();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            overridePendingTransition(R.anim.zoom_in, R.anim.zoom_out);
-            finish();
+        {
+            e.putBoolean("firstStart",false);
+
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+
         }
         else if(listType.equals(LIST_TYPE_LOCAL)) {
-            e.apply();
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            finish();
+
+            intent =  new Intent(getApplicationContext(), SettingsActivity.class);
+
         }
+        e.apply();
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
 
     }
 

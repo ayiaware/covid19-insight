@@ -16,17 +16,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.controllers.AppController;
 
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_INTENT;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE_SERVER;
-import static commitware.ayia.covid19.Controllers.AppUtils.SLIDER_INTENT;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_INTENT;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SERVER;
+import static commitware.ayia.covid19.controllers.AppUtils.SLIDER_INTENT;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentListenerMain {
 
@@ -40,17 +40,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = null;
-        if(AppController.getInstance().getAppType().equals("covidNg"))
-        {
+
             appBarConfiguration = new AppBarConfiguration.Builder(
                     R.id.navigation_helpline, R.id.navigation_dashboard, R.id.navigation_info, R.id.navigation_news)
                     .build();
-        }
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        if (appBarConfiguration != null) {
-            NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        }
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {

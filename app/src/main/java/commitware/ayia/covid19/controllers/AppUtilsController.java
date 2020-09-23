@@ -1,12 +1,12 @@
-package commitware.ayia.covid19.Controllers;
+package commitware.ayia.covid19.controllers;
 
 
 import java.util.Calendar;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.CONTINENT_URL;
-import static commitware.ayia.covid19.Controllers.AppUtils.COUNTRY_URL;
-import static commitware.ayia.covid19.Controllers.AppUtils.GLOBE_URL;
-import static commitware.ayia.covid19.Controllers.AppUtils.STATE_URL;
+import static commitware.ayia.covid19.controllers.AppUtils.CONTINENT_URL;
+import static commitware.ayia.covid19.controllers.AppUtils.COUNTRY_URL;
+import static commitware.ayia.covid19.controllers.AppUtils.GLOBE_URL;
+import static commitware.ayia.covid19.controllers.AppUtils.STATE_URL;
 
 public class AppUtilsController {
 

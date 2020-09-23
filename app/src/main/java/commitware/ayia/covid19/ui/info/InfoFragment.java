@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.SLIDER_INTENT;
+import static commitware.ayia.covid19.controllers.AppUtils.SLIDER_INTENT;
 
 public class InfoFragment extends Fragment {
 

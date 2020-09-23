@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.Controllers;
+package commitware.ayia.covid19.controllers;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -24,13 +24,15 @@ public class AppController extends Application {
     private static AppController mInstance;
 
 
-    String id;
-    String state;
-    String code;
-    String continent;
-    String country;
-    String appType;
-    boolean connected;
+    private String id;
+    private String state;
+    private String code;
+    private String continent;
+    private String country;
+    private String appType;
+    private boolean isConnected;
+
+    private boolean isFirstStart;
 
     @Override
     public void onCreate() {
@@ -38,18 +40,19 @@ public class AppController extends Application {
         mInstance = this;
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        DatabaseReference connection = FirebaseDatabase.getInstance().getReference(".info/connected");
+        DatabaseReference connection = FirebaseDatabase.getInstance().getReference(".info/isConnected");
         connection.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                connected = snapshot.getValue(Boolean.class);
-                if (connected) {
-                    Log.d(TAG, "connected");
+                setConnected(snapshot.getValue(Boolean.class));
+
+                if (isConnected()) {
+                    Log.d(TAG, "isConnected");
 
                 } else {
-                    Log.d(TAG, "not connected");
-       }
+                    Log.d(TAG, "not isConnected");
+                }
             }
 
             @Override
@@ -59,39 +62,35 @@ public class AppController extends Application {
         });
 
         SharedPreferences getSharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isFirstStart = getSharedPreferences.getBoolean("firstStart", true);
-        appType = getSharedPreferences.getString("appType", "covidNg");
-        if(appType.equals("covidNg"))
-        {
-            if (isFirstStart)
-            {
-                SharedPreferences.Editor e = getSharedPreferences.edit();
-                e.putString("country", "Nigeria");
-                e.putString("code", "ng");
-                e.putString("state", "");
-                e.putString("id", "");
-                e.putString("continent","Africa");
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-                e.apply();
-            }
-            else {
-                String theme = getSharedPreferences.getString("theme", "LightTheme");
-                if(theme.equals("LightTheme"))
-                {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                else if(theme.equals("DarkTheme"))
-                {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                }
-            }
-            state = getSharedPreferences.getString("state",null);
-            id = getSharedPreferences.getString("id", null);
-            continent = getSharedPreferences.getString("continent", "Africa");
-            country = getSharedPreferences.getString("country", "Nigeria");
-            code = getSharedPreferences.getString("code", "ng");
+        setFirstStart(getSharedPreferences.getBoolean("firstStart", true));
+
+        setAppType(getSharedPreferences.getString("appType", "covidGlobal"));
+
+        new ThemeController(getSharedPreferences.getString("theme", "FollowSystem"));
+
+
+
+
+        if (isFirstStart())
+        {
+            SharedPreferences.Editor e = getSharedPreferences.edit();
+            e.putString("country", "Nigeria");
+            e.putString("code", "ng");
+            e.putString("continent","Africa");
+
+            e.apply();
         }
+
+        setState(getSharedPreferences.getString("state",null));
+        setId(getSharedPreferences.getString("id", null));
+
+        setContinent(getSharedPreferences.getString("continent", null));
+
+        setCountry(getSharedPreferences.getString("country", null));
+
+        setCode(getSharedPreferences.getString("code", null));
+
 
 
     }
@@ -124,12 +123,20 @@ public class AppController extends Application {
         }
     }
 
+    public Boolean isFirstStart() {
+        return isFirstStart;
+    }
+
+    public void setFirstStart(boolean isFirstStart) {
+        this.isFirstStart = isFirstStart;
+    }
+
     public boolean isConnected() {
-        return connected;
+        return isConnected;
     }
 
     public void setConnected(boolean connected) {
-        this.connected = connected;
+        this.isConnected = connected;
     }
 
     public String getId() {

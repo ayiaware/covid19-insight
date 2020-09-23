@@ -10,14 +10,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.controllers.AppController;
 import commitware.ayia.covid19.R;
-import commitware.ayia.covid19.Controllers.AppUtils;
+import commitware.ayia.covid19.controllers.AppUtils;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE_SETUP;
-import static commitware.ayia.covid19.Controllers.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SETUP;
+import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_STATE;
 
 public class SplashActivity extends AppCompatActivity {
 

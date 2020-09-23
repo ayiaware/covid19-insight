@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.Controllers;
+package commitware.ayia.covid19.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

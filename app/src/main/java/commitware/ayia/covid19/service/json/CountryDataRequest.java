@@ -20,8 +20,8 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import commitware.ayia.covid19.Controllers.AppController;
-import commitware.ayia.covid19.Controllers.AppUtilsController;
+import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.controllers.AppUtilsController;
 import commitware.ayia.covid19.models.Summary;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;

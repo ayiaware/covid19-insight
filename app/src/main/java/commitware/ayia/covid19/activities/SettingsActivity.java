@@ -18,32 +18,28 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import commitware.ayia.covid19.Controllers.AppController;
-import commitware.ayia.covid19.fragments.ListActivityFragment;
+import commitware.ayia.covid19.controllers.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
 import commitware.ayia.covid19.models.Country;
 import commitware.ayia.covid19.models.CountryServer;
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.Controllers.AppUtils.LOCATION_COUNTRY;
-import static commitware.ayia.covid19.Controllers.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_LOCAL;
+import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_COUNTRY;
+import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_STATE;
 
-public class SettingsActivity extends AppCompatActivity implements OnFragmentInteractionListener{
+public class SettingsActivity extends AppCompatActivity {
+
     private static final String TITLE_TAG = "settingsActivityTitle";
-
-    LinearLayout linearLayout;
-
-    String state, country;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-        linearLayout = findViewById(R.id.linearLayout);
+
 
 
 
@@ -71,12 +67,6 @@ public class SettingsActivity extends AppCompatActivity implements OnFragmentInt
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if(AppController.getInstance().getAppType().equals("covidNg")) {
-            SharedPreferences pref = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
-            state = pref.getString("state", null);
-            country = pref.getString("country", null);
-        }
-
     }
 
     @Override
@@ -95,54 +85,11 @@ public class SettingsActivity extends AppCompatActivity implements OnFragmentInt
     }
 
 
-    @Override
-    public void listItemClickServer(CountryServer countryServer) {
-    }
-
-    @Override
-    public void listItemClickSetting(Country country, String location, String listType) {
-
-        SharedPreferences getSharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor e = getSharedPreferences.edit();
-        String countryName;
-        String continent;
-        String state;
-        String id ;
-
-        switch (location){
-            case LOCATION_STATE:
-                state = country.getName();
-                id = country.getContinent();
-                e.putString("state", state);
-                e.putString("id", id);
-                AppController.getInstance().setId(id);
-                AppController.getInstance().setState(state);
-                break;
-            case LOCATION_COUNTRY:
-                countryName =  country.getName();
-                continent = country.getContinent();
-                e.putString("country", countryName);
-                e.putString("continent",continent);
-                AppController.getInstance().setCountry(countryName);
-                AppController.getInstance().setContinent(continent);
-                break;
-        }
-        e.apply();
-
-
-
-        onBackPressed();
-
-    }
-
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
-
-            if(AppController.getInstance().getAppType().equals("covidNg"))
-            {
                 setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
                 Preference prefState = findPreference("state");
@@ -155,13 +102,12 @@ public class SettingsActivity extends AppCompatActivity implements OnFragmentInt
                             it.putExtra(LIST_REQUEST, LOCATION_STATE);
                             it.putExtra(LIST_TYPE, LIST_TYPE_LOCAL);
                             startActivity(it);
-                            getActivity().finish();
 
                             return true;
                         }
                     });
                 }
-            }
+
 
             Preference prefFeedBack = findPreference("feedback");
             if (prefFeedBack != null) {

@@ -21,13 +21,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.controllers.AppController;
 
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.Controllers.AppUtils.LIST_INTENT;
+import static commitware.ayia.covid19.controllers.AppUtils.LIST_INTENT;
 
 public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -79,28 +79,14 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
         fab = root.findViewById(R.id.floatingActionButton);
 
-        if(appType.equals("covidNg"))
-        {
+
             final RadioButton radioState = root.findViewById(R.id.radioState);
             radioState.setVisibility(View.VISIBLE);
             locationDataRequest = "state";
             radioFilter.check(R.id.radioState);
-        }
 
-        else if(appType.equals("covidGlobal"))
-        {
-            radioFilter.check(R.id.radioCountry);
-            locationDataRequest = "country";
 
-        }
 
-//        Calendar rightNow = Calendar.getInstance();
-//        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-//
-//        boolean getYesterday = hour >= 6;
-//
-//      Toast.makeText(getContext(), "Hour "+hour+"yest "+getYesterday, Toast.LENGTH_SHORT).show();
-//
 
 
         radioFilter.setOnCheckedChangeListener((group, checkedId) -> {
@@ -108,18 +94,11 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
             locationDataRequest = radioButton.getText().toString();
             loadSummaryData(locationDataRequest);
-           // Toast.makeText(getContext(), ""+radioButton.getText(), Toast.LENGTH_SHORT).show();
-            if ("globe".equals(locationDataRequest)) {
-                fab.setEnabled(false);
-                fab.setVisibility(View.INVISIBLE);
-            }
-            else
-            {
+
 
                 fab.setEnabled(true);
                 fab.setVisibility(View.VISIBLE);
 
-            }
         });
 
 

@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.Adapter;
+package commitware.ayia.covid19.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

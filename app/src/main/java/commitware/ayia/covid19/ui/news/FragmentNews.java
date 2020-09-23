@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
-import commitware.ayia.covid19.Adapter.RecyclerViewAdapterNews;
+import commitware.ayia.covid19.adapter.RecyclerViewAdapterNews;
 
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;

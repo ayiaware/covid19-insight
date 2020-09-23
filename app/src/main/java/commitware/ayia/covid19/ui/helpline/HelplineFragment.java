@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -37,8 +36,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.Adapter.RecyclerViewAdapterHelpline;
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.adapter.RecyclerViewAdapterHelpline;
+import commitware.ayia.covid19.controllers.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
 import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
@@ -47,6 +46,7 @@ import commitware.ayia.covid19.R;
 
 
 public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
     private RelativeLayout errorLayout;
     private ImageView errorImage;
     private TextView errorTitle, errorMessage;
@@ -55,7 +55,7 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
     private DatabaseReference demoRef;
     private OnFragmentListenerMain mListener;
 
-    String TAG = "HELPLINEFRAGMENT";
+    private String TAG = "HELPLINEFRAGMENT";
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
@@ -65,7 +65,7 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HelplineViewModel helplineViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HelplineViewModel.class);
+       // HelplineViewModel helplineViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(HelplineViewModel.class);
         View root = inflater.inflate(R.layout.fragment_helpline, container, false);
 
 
@@ -126,7 +126,7 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
         return root;
     }
 
-    public void getHelplines()
+    private void getHelplines()
     {
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override

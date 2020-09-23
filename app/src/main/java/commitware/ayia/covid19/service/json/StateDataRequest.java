@@ -13,7 +13,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 
 
 import org.json.JSONArray;
@@ -21,18 +20,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
-import commitware.ayia.covid19.Controllers.AppController;
-import commitware.ayia.covid19.Controllers.AppUtilsController;
-import commitware.ayia.covid19.models.CountryServer;
+import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.controllers.AppUtilsController;
 import commitware.ayia.covid19.models.Summary;
 
 import static com.android.volley.VolleyLog.TAG;
-import static commitware.ayia.covid19.Controllers.AppUtils.NO_INFO;
+import static commitware.ayia.covid19.controllers.AppUtils.NO_INFO;
 
 
 public class StateDataRequest {

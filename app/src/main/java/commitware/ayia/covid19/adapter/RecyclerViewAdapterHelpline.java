@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.Adapter;
+package commitware.ayia.covid19.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import commitware.ayia.covid19.Controllers.AppController;
+import commitware.ayia.covid19.controllers.AppController;
 import commitware.ayia.covid19.models.Helpline;
 import commitware.ayia.covid19.R;
 

@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.Adapter.SliderAdapter;
+import commitware.ayia.covid19.adapter.SliderAdapter;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerSlider;
 import commitware.ayia.covid19.models.Slide;
 import commitware.ayia.covid19.R;

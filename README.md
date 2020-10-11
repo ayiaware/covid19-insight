@@ -58,15 +58,25 @@ Send feedback directly to commitware email.
 
 
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(4).jpg)![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(5).jpg)![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
-
-
-
-![ScreenShot](https://github.com/commitware/Covid-19-insight-Nigeria/blob/master/screenshot%20(7).jpg)![ScreenShot](https://github.com/commitware/Covid-19-insight-Nigeria/blob/master/screenshot%20(8).jpg)![ScreenShot](https://github.com/commitware/Covid-19-insight-Nigeria/blob/master/screenshot%20(9).jpg)
-
-![ScreenShot](https://github.com/commitware/Covid-19-insight-Nigeria/blob/master/screenshot%20(2).jpg)![ScreenShot](https://github.com/commitware/Covid-19-insight-Nigeria/blob/master/screenshot%20(3).jpg)
-
 ![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(4).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(5).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(7).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(8).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(9).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(2).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(3).jpg)
+
+![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(1).jpg)
+
+
 
 
 

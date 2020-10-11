@@ -5,7 +5,7 @@ Note information for all states (Nigeria), all countries, all continents which i
 
 Download app 
 
-https://drive.google.com/file/d/1OfelHgMYU-EOUFgb7mhbCZsxDck-DPTi/view?usp=sharing
+https://github.com/commitware/Covid19-Insight-Nigeria/releases/download/v2.0/covid19-insight-ng.apk
 
 
 libraries

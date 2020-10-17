@@ -49,7 +49,9 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     private TextView tvNetwork;
     private String locationDataRequest;
     private FloatingActionButton fab;
-    private boolean connected;
+
+
+
     private SwipeRefreshLayout swipe;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, final Bundle savedInstanceState) {
@@ -57,7 +59,7 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
 
         final View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        String appType = AppController.getInstance().getAppType();
+
 
         progressBar = root.findViewById(R.id.progress_circular_home);
 

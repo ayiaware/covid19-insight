@@ -25,15 +25,16 @@ public class RecyclerViewAdapterNews extends RecyclerView.Adapter<RecyclerViewAd
 
     private Context mContext;
 
-
     public RecyclerViewAdapterNews(Context context) {
 
         mContext = context;
 
     }
+
     public List<News> getNews() {
         return mValues;
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder  {
 
          TextView tvTitle;

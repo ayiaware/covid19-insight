@@ -34,7 +34,9 @@ public class NewsRepository {
         RestApiServiceNews endpoint = RetrofitInstanceNews.getRetrofitServiceNews();
 
         String code = AppController.getInstance().getCode();
+
         Call<NewsResponseWrapper> call;
+
         if (isGetAll) {
             call = endpoint.getNews(code, "health", BuildConfig.API_NEWS);
         } else {
@@ -44,6 +46,7 @@ public class NewsRepository {
                 call = endpoint.getNews(code, "health", BuildConfig.API_NEWS);
             }
         }
+
         call.enqueue(new Callback<NewsResponseWrapper>() {
             @Override
             public void onResponse(@NonNull Call<NewsResponseWrapper> call, @NonNull Response<NewsResponseWrapper> response) {

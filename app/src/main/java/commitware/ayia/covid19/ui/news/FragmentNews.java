@@ -47,7 +47,8 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private NewsViewModel viewModel;
 
-    RecyclerView rv;
+    private RecyclerView rv;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
        // newsViewModel = new ViewModelProvider(this, new ViewModelProvider.NewInstanceFactory()).get(NewsViewModel.class);
@@ -89,9 +90,9 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
         }));
 
         loadNewsData(viewModel.getNewsData());
-
-
     }
+
+
     private void loadNewsData(LiveData<RestApiResponse> liveData) {
 
         errorLayout.setVisibility(View.GONE);
@@ -120,14 +121,10 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                     // Throwable e = apiResponse.getError();
                     // Toast.makeText(getActivity(), "Error is " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     // Log.e(TAG, "Error is " + e.getLocalizedMessage());
-
                     showErrorMessage(
                             R.drawable.no_result,
                             "Network Error",
                             "Check Network\n");
-
-
-
                 }
 
             }
@@ -167,12 +164,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
         errorTitle.setText(title);
         errorMessage.setText(message);
 
-        btnRetry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRefresh();
-            }
-        });
+        btnRetry.setOnClickListener(v -> onRefresh());
 
     }
 

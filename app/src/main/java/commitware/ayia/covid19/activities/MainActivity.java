@@ -16,8 +16,6 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import commitware.ayia.covid19.controllers.AppController;
-
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
@@ -83,11 +81,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
     }
 
     @Override
-    public void getListIntent(String intent, String arguement) {
+    public void getListIntent(String intent, String argument) {
         if (intent.equals(LIST_INTENT))
         {
             Intent it = new Intent(MainActivity.this, ListActivity.class);
-            it.putExtra(LIST_REQUEST, arguement);
+            it.putExtra(LIST_REQUEST, argument);
             it.putExtra(LIST_TYPE, LIST_TYPE_SERVER);
             startActivity(it);
             overridePendingTransition(0,0);
@@ -95,11 +93,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         if (intent.equals(SLIDER_INTENT))
         {
             Intent it = new Intent(MainActivity.this, SliderActivity.class);
-            it.putExtra("sliderRequest", arguement);
+            it.putExtra("sliderRequest", argument);
             startActivity(it);
             overridePendingTransition(0,0);
         }
-
 
     }
 

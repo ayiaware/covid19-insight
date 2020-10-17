@@ -3,12 +3,17 @@ package commitware.ayia.covid19.ui.news;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+
 import androidx.lifecycle.AndroidViewModel;
+
 import androidx.lifecycle.LiveData;
+
 import androidx.lifecycle.MediatorLiveData;
+
 import androidx.lifecycle.Observer;
 
 import commitware.ayia.covid19.repositories.NewsRepository;
+
 import commitware.ayia.covid19.service.Retrofit.RestApiResponse;
 
 
@@ -19,6 +24,7 @@ public class NewsViewModel extends AndroidViewModel {
     private boolean isGetAll;
 
     public NewsViewModel(@NonNull Application application) {
+
         super(application);
 
         NewsRepository mRepository = new NewsRepository(application);
@@ -37,7 +43,6 @@ public class NewsViewModel extends AndroidViewModel {
     }
 
     public LiveData<RestApiResponse> getNewsData() {
-
 
      return mObservableNews;
 

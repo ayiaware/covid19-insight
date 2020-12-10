@@ -44,6 +44,8 @@ News:
 
 Shows new update of all related to health.
 
+API https://newsapi.org/
+
 Helpline:
 
 Call helpline directly from app based on your state. Helpline are updated regularly

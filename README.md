@@ -60,7 +60,7 @@ Change locations.
 
 ![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(7).jpg)
+
 
 
 

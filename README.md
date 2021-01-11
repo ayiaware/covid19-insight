@@ -1,80 +1,67 @@
-# Covid19-Insight-Nigeria
-
-Covid19 Insight (Nigeria) is a version made to help individuals keep track of covid 19 in each state, the country (Nigeria), the continent (Africa) and the world.
-Note information for all states (Nigeria), all countries, all continents which is updated every 10 minutes. Covid 19 Insight also provides relevant information that creates awareness and helps curb the spread of the deadly disease. Helplines for each region are readily available to users.
-
-Download app 
-
-https://github.com/commitware/Covid19-Insight-Nigeria/releases/download/v2.0/covid19-insight-ng.apk
+# Covid19-Insight
 
 
-libraries
+Covid19 Insight keeps track of covid 19 case in each state (only available for Nigeria), the country(195 countries), the continent (7 continents) and the world.
+It provides relevant information on guidelines and also Helplines for each state (only available for Nigeria). Information for all countries and continents are updated every 10 minutes by disease.sh.
 
-Json
 
-Reftrofit
+Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
+
+
+
+
+lIBRARIES
+
+Live Data
+
+Navigation
+
+Reftrofit2
 
 Glide
 
 Firebase
 
-•	Data can still be obtained if offline.
 
-•	View data from other states affected, view data from other countries, and also other continents.
 
-•	State can be changed in settings.
 
-•	Get regular updates on new related to COVID-19 and health in your app
+APIs
 
-•	Theming, beautiful design with wonderful user experience.
+Data for covid 19 cases for states in nigeria
 
-•	App does not require GPS permissions.
+https://covidnigeria.herokuapp.com/api
 
-FEATURES
 
-Dashboard:
 
-Shows information on covid 19 based on latest data.
 
-Info:
+Data for all countries and continents
 
-Gives insight on covid-19. How it spreads, precautions to be taken etc. 
+https://corona.lmao.ninja/
+
+
+
+OTHER FEATURES
 
 News:
 
-Shows new update of all related to health.
-
-Helpline:
-
-Call helpline directly from app based on your state. Helpline are updated regularly
-
-Settings:
-
-Change settings related to app behavior.  
-
-Change theme from light to dark mode and vice versa.
-
-Send feedback directly to commitware email.
+Shows news update of all related to health.
+API https://newsapi.org/
 
 
+Settings:  
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(4).jpg)
+Change theme.
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(5).jpg)
+Send feedback.
+
+Change locations.
+
+
 
 ![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(7).jpg)
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(8).jpg)
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(9).jpg)
-
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(2).jpg)
-
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(3).jpg)
-
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(1).jpg)
 
 
 

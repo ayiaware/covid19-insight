@@ -19,11 +19,11 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.models.Summary;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static commitware.ayia.covid19.controllers.AppUtils.GLOBE_URL;
+import static commitware.ayia.covid19.AppUtils.GLOBE_URL;
 
 public class GlobeDataRequest {
 

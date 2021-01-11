@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.controllers;
+package commitware.ayia.covid19;
 
 import androidx.appcompat.app.AppCompatDelegate;
 

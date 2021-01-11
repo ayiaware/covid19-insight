@@ -2,12 +2,10 @@ package commitware.ayia.covid19.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -18,17 +16,13 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import commitware.ayia.covid19.controllers.AppController;
-import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
-import commitware.ayia.covid19.models.Country;
-import commitware.ayia.covid19.models.CountryServer;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_COUNTRY;
-import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_LOCAL;
+import static commitware.ayia.covid19.AppUtils.LOCATION_STATE;
 
 public class SettingsActivity extends AppCompatActivity {
 

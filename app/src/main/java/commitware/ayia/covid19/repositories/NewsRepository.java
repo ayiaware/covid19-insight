@@ -7,8 +7,8 @@ import androidx.lifecycle.MutableLiveData;
 
 
 import commitware.ayia.covid19.BuildConfig;
-import commitware.ayia.covid19.controllers.AppController;
-import commitware.ayia.covid19.controllers.AppUtils;
+import commitware.ayia.covid19.AppController;
+import commitware.ayia.covid19.AppUtils;
 import commitware.ayia.covid19.models.NewsResponseWrapper;
 import commitware.ayia.covid19.service.Retrofit.RestApiResponse;
 import commitware.ayia.covid19.service.Retrofit.RestApiServiceNews;

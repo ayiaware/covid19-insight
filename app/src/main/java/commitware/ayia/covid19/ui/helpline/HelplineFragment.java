@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import commitware.ayia.covid19.adapter.RecyclerViewAdapterHelpline;
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
 import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;

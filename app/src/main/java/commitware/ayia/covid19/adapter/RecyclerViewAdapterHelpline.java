@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.models.Helpline;
 import commitware.ayia.covid19.R;
 

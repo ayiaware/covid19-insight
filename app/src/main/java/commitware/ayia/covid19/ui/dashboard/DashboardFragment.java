@@ -16,18 +16,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_INTENT;
+import static commitware.ayia.covid19.AppUtils.LIST_INTENT;
 
 public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -48,7 +49,9 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     private TextView tvHeading;
     private TextView tvNetwork;
     private String locationDataRequest;
-    private FloatingActionButton fab;
+
+
+    private ExtendedFloatingActionButton fab;
 
 
 

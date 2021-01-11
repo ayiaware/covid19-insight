@@ -41,7 +41,7 @@ import java.util.List;
 
 import commitware.ayia.covid19.adapter.RecyclerViewAdapter;
 import commitware.ayia.covid19.adapter.RecyclerViewAdapterLocal;
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
 import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
 import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
@@ -51,10 +51,10 @@ import commitware.ayia.covid19.R;
 import commitware.ayia.covid19.repositories.CountriesData;
 import commitware.ayia.covid19.repositories.StatesData;
 
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SERVER;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SETUP;
-import static commitware.ayia.covid19.controllers.AppUtils.NO_INFO;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_LOCAL;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SERVER;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SETUP;
+import static commitware.ayia.covid19.AppUtils.NO_INFO;
 
 /**
  * A placeholder fragment containing a simple view.

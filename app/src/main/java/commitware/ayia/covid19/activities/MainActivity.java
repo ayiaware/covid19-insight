@@ -2,14 +2,21 @@ package commitware.ayia.covid19.activities;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.ImageViewCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -20,11 +27,11 @@ import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
 
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_INTENT;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SERVER;
-import static commitware.ayia.covid19.controllers.AppUtils.SLIDER_INTENT;
+import static commitware.ayia.covid19.AppUtils.LIST_INTENT;
+import static commitware.ayia.covid19.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SERVER;
+import static commitware.ayia.covid19.AppUtils.SLIDER_INTENT;
 
 public class MainActivity extends AppCompatActivity implements OnFragmentListenerMain {
 
@@ -47,15 +54,26 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
 
+                if (destination.getLabel() != null) {
+
+                  String current = destination.getLabel().toString();
+
+                    if(current.equals(getResources().getString(R.string.title_dashboard))) {
+
+
+
+                    }
+
+                }
+            }
         });
 
 
     }
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
@@ -82,16 +100,14 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
 
     @Override
     public void getListIntent(String intent, String argument) {
-        if (intent.equals(LIST_INTENT))
-        {
+        if (intent.equals(LIST_INTENT)) {
             Intent it = new Intent(MainActivity.this, ListActivity.class);
             it.putExtra(LIST_REQUEST, argument);
             it.putExtra(LIST_TYPE, LIST_TYPE_SERVER);
             startActivity(it);
             overridePendingTransition(0,0);
         }
-        if (intent.equals(SLIDER_INTENT))
-        {
+        if (intent.equals(SLIDER_INTENT)) {
             Intent it = new Intent(MainActivity.this, SliderActivity.class);
             it.putExtra("sliderRequest", argument);
             startActivity(it);
@@ -134,8 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
     }
 
 
-    private void sendViaWhatsApp(String helpline)
-    {
+    private void sendViaWhatsApp(String helpline) {
         String url = "https://api.whatsapp.com/send?phone=" + "+234"+ helpline.substring(1);
         try {
             PackageManager pm = MainActivity.this.getPackageManager();
@@ -158,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
     }
 
 
-    private void sentViaSMS(String helpline)
-    {
+    private void sentViaSMS(String helpline) {
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
         intentSMS.setData(Uri.parse("smsto:"+helpline));  // This ensures only SMS apps respond
         // intentSMS.setType("vnd.android-dir/mms-sms");
@@ -171,12 +185,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
     }
 
 
-    private void makePhoneCall(String helpline)
-    {
+    private void makePhoneCall(String helpline) {
         Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + helpline));
         if (intentCall.resolveActivity(getPackageManager()) != null) {
             startActivity(intentCall);
         }
     }
+
+
 
 }

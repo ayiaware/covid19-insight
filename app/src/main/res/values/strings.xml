@@ -132,5 +132,6 @@
     <string name="rate_app">Rate app</string>
     <string name="rate_app_summary">Rating your experience with this app on google play store</string>
     <string name="splash_text">Covid-19  Insight</string>
+    <string name="other_locations">other locations</string>
 
 </resources>

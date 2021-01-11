@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 
 
-import commitware.ayia.covid19.controllers.AppController;
+import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.fragments.ListActivityFragment;
 import commitware.ayia.covid19.fragments.ListDetailFragment;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
@@ -19,12 +19,12 @@ import commitware.ayia.covid19.models.CountryServer;
 import commitware.ayia.covid19.R;
 
 
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.controllers.AppUtils.LIST_TYPE_SETUP;
-import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_COUNTRY;
-import static commitware.ayia.covid19.controllers.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_LOCAL;
+import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SETUP;
+import static commitware.ayia.covid19.AppUtils.LOCATION_COUNTRY;
+import static commitware.ayia.covid19.AppUtils.LOCATION_STATE;
 
 public class ListActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
@@ -118,8 +118,7 @@ public class ListActivity extends AppCompatActivity implements OnFragmentInterac
 
         Intent intent = new Intent();
 
-        if(listType.equals(LIST_TYPE_SETUP))
-        {
+        if(listType.equals(LIST_TYPE_SETUP)) {
             e.putBoolean("firstStart",false);
 
             intent = new Intent(getApplicationContext(), MainActivity.class);

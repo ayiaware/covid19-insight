@@ -105,7 +105,6 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
 
                 if (apiResponse == null) {
                     showErrorMessage(
-                            R.drawable.no_result,
                             "No Result",
                             "Retry\n");
                     return;
@@ -122,7 +121,6 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                     // Toast.makeText(getActivity(), "Error is " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     // Log.e(TAG, "Error is " + e.getLocalizedMessage());
                     showErrorMessage(
-                            R.drawable.no_result,
                             "Network Error",
                             "Check Network\n");
                 }
@@ -152,7 +150,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
         loadNewsData(viewModel.getNewsData());
     }
 
-    private void showErrorMessage(int imageView, String title, String message){
+    private void showErrorMessage(String title, String message){
 
         refreshNews(false);
 
@@ -160,7 +158,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
             errorLayout.setVisibility(View.VISIBLE);
         }
 
-        errorImage.setImageResource(imageView);
+        errorImage.setImageResource(R.drawable.no_result);
         errorTitle.setText(title);
         errorMessage.setText(message);
 

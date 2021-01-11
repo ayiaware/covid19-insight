@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.controllers;
+package commitware.ayia.covid19;
 
 import android.app.Application;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

@@ -5,7 +5,7 @@ Covid19 Insight keeps track of covid 19 case in each state (only available for N
 It provides relevant information on guidelines and also Helplines for each state (only available for Nigeria). Information for all countries and continents are updated every 10 minutes by disease.sh.
 
 
-Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
+##Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
 
 
 view Demo on YouTube
@@ -13,13 +13,15 @@ https://youtu.be/9q7elJWsRjg
 
 
 
-lIBRARIES
+##lIBRARIES
 
 Live Data
 
 Navigation
 
 Reftrofit2
+
+Gson
 
 Glide
 
@@ -28,13 +30,11 @@ Firebase
 
 
 
-APIs
+##APIs
 
 Data for covid 19 cases for states in nigeria
 
 https://covidnigeria.herokuapp.com/api
-
-
 
 
 Data for all countries and continents
@@ -43,7 +43,7 @@ https://corona.lmao.ninja/
 
 
 
-OTHER FEATURES
+##OTHER FEATURES
 
 News:
 
@@ -61,7 +61,7 @@ Change locations.
 
 
 
-![ScreenShot](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
+![demo image](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
 
 
 

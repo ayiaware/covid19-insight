@@ -19,13 +19,13 @@ import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
 
 
-public class RecyclerViewAdapterNews extends RecyclerView.Adapter<RecyclerViewAdapterNews.ViewHolder>{
+public class RvAdapterNews extends RecyclerView.Adapter<RvAdapterNews.ViewHolder>{
 
   private List<News> mValues = new ArrayList<>();
 
     private Context mContext;
 
-    public RecyclerViewAdapterNews(Context context) {
+    public RvAdapterNews(Context context) {
 
         mContext = context;
 
@@ -66,7 +66,7 @@ public class RecyclerViewAdapterNews extends RecyclerView.Adapter<RecyclerViewAd
 
     @NonNull
     @Override
-    public RecyclerViewAdapterNews.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvAdapterNews.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.row_news, parent, false);
 

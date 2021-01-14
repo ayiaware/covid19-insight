@@ -8,12 +8,12 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
+import commitware.ayia.covid19.interfaces.RVClickListener;
 
-public class RecyclerViewTouchListener implements RecyclerView.OnItemTouchListener {
+public class RVTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetector gestureDetector;
-    private RecyclerViewClickListener clickListener;
-    public RecyclerViewTouchListener(Context context, final RecyclerView recyclerView, final RecyclerViewClickListener clickListener) {
+    private RVClickListener clickListener;
+    public RVTouchListener(Context context, final RecyclerView recyclerView, final RVClickListener clickListener) {
         this.clickListener = clickListener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override

@@ -16,14 +16,14 @@ import commitware.ayia.covid19.models.Slide;
 import commitware.ayia.covid19.R;
 
 
-public class RecyclerViewAdapterSlide extends RecyclerView.Adapter<RecyclerViewAdapterSlide.ViewHolder>{
+public class RvAdapterSlide extends RecyclerView.Adapter<RvAdapterSlide.ViewHolder>{
 
   private List<Slide> mValues;
 
     private Context mContext;
 
 
-    public RecyclerViewAdapterSlide(Context context, List<Slide> values) {
+    public RvAdapterSlide(Context context, List<Slide> values) {
 
         mValues = values;
 
@@ -56,7 +56,7 @@ public class RecyclerViewAdapterSlide extends RecyclerView.Adapter<RecyclerViewA
 
     @NonNull
     @Override
-    public RecyclerViewAdapterSlide.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvAdapterSlide.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.row_recycler, parent, false);
 

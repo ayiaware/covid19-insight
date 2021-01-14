@@ -18,14 +18,14 @@ import commitware.ayia.covid19.models.Country;
 import commitware.ayia.covid19.R;
 
 
-public class RecyclerViewAdapterLocal extends RecyclerView.Adapter<RecyclerViewAdapterLocal.ViewHolder> implements Filterable {
+public class RvAdapterLocal extends RecyclerView.Adapter<RvAdapterLocal.ViewHolder> implements Filterable {
 
   private List<Country> mValues;
   private List<Country> mValuesFilteredList;
     private Context mContext;
 
 
-    public RecyclerViewAdapterLocal(Context context, List<Country> values) {
+    public RvAdapterLocal(Context context, List<Country> values) {
 
         mValues = values;
         mValuesFilteredList = values;
@@ -56,7 +56,7 @@ public class RecyclerViewAdapterLocal extends RecyclerView.Adapter<RecyclerViewA
 
     @NonNull
     @Override
-    public RecyclerViewAdapterLocal.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvAdapterLocal.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_row, parent, false);
 

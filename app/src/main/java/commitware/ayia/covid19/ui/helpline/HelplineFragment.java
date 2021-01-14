@@ -36,11 +36,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.adapter.RecyclerViewAdapterHelpline;
+import commitware.ayia.covid19.adapter.RvAdapterHelpline;
 import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
-import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
-import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
+import commitware.ayia.covid19.interfaces.RVClickListener;
+import commitware.ayia.covid19.listeners.RVTouchListener;
 import commitware.ayia.covid19.models.Helpline;
 import commitware.ayia.covid19.R;
 
@@ -143,10 +143,10 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
                         helplines.add(helpline);
 
                     }
-                    RecyclerViewAdapterHelpline adapterHelpline = new RecyclerViewAdapterHelpline(getActivity(), helplines);
+                    RvAdapterHelpline adapterHelpline = new RvAdapterHelpline(getActivity(), helplines);
                     recyclerView.setAdapter(adapterHelpline);
 
-                    recyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), recyclerView, new RecyclerViewClickListener() {
+                    recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
                         @Override
                         public void onClick(View view, int position) {
 

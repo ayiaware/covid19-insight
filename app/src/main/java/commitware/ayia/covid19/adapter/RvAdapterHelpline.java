@@ -17,13 +17,13 @@ import commitware.ayia.covid19.models.Helpline;
 import commitware.ayia.covid19.R;
 
 
-public class RecyclerViewAdapterHelpline extends RecyclerView.Adapter<RecyclerViewAdapterHelpline.ViewHolder> {
+public class RvAdapterHelpline extends RecyclerView.Adapter<RvAdapterHelpline.ViewHolder> {
 
     private List<Helpline> mValues;
     private Context mContext;
 
 
-    public RecyclerViewAdapterHelpline(Context context, List<Helpline> values) {
+    public RvAdapterHelpline(Context context, List<Helpline> values) {
 
         mValues = values;
         mContext = context;
@@ -66,7 +66,7 @@ public class RecyclerViewAdapterHelpline extends RecyclerView.Adapter<RecyclerVi
 
     @NonNull
     @Override
-    public RecyclerViewAdapterHelpline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvAdapterHelpline.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.row_helpline, parent, false);
 

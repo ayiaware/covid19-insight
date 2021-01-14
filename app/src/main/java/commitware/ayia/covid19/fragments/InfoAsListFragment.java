@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.adapter.RecyclerViewAdapterSlide;
+import commitware.ayia.covid19.adapter.RvAdapterSlide;
 import commitware.ayia.covid19.interfaces.OnFragmentListenerSlider;
 import commitware.ayia.covid19.models.Slide;
 import commitware.ayia.covid19.R;
@@ -92,8 +92,8 @@ public class InfoAsListFragment extends Fragment {
             }
         }
 
-        RecyclerViewAdapterSlide recyclerViewAdapterSlide = new RecyclerViewAdapterSlide(getActivity(),slideList);
-        recyclerView.setAdapter(recyclerViewAdapterSlide);
+        RvAdapterSlide rvAdapterSlide = new RvAdapterSlide(getActivity(),slideList);
+        recyclerView.setAdapter(rvAdapterSlide);
 
         return root;
     }

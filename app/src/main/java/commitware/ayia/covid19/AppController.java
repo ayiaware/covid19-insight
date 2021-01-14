@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import commitware.ayia.covid19.utils.ThemeChanger;
+
 public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
@@ -66,7 +68,7 @@ public class AppController extends Application {
 
         setAppType(getSharedPreferences.getString("appType", "covidGlobal"));
 
-        new ThemeController(getSharedPreferences.getString("theme", "FollowSystem"));
+        new ThemeChanger(getSharedPreferences.getString("theme", "FollowSystem"));
 
 
 

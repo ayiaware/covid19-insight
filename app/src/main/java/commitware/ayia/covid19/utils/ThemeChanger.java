@@ -1,10 +1,10 @@
-package commitware.ayia.covid19;
+package commitware.ayia.covid19.utils;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-public class ThemeController {
+public class ThemeChanger {
 
-    public ThemeController(String theme) {
+    public ThemeChanger(String theme) {
 
         switch (theme) {
             case "LightTheme":

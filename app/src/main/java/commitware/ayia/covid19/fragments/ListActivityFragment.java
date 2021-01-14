@@ -39,12 +39,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import commitware.ayia.covid19.adapter.RecyclerViewAdapter;
-import commitware.ayia.covid19.adapter.RecyclerViewAdapterLocal;
+import commitware.ayia.covid19.adapter.RvAdapter;
+import commitware.ayia.covid19.adapter.RvAdapterLocal;
 import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
-import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
-import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
+import commitware.ayia.covid19.interfaces.RVClickListener;
+import commitware.ayia.covid19.listeners.RVTouchListener;
 import commitware.ayia.covid19.models.Country;
 import commitware.ayia.covid19.models.CountryServer;
 import commitware.ayia.covid19.R;
@@ -84,8 +84,8 @@ public class ListActivityFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     boolean isNetworkOk;
-    private RecyclerViewAdapter recyclerViewAdapterServer;
-    private RecyclerViewAdapterLocal recyclerViewAdapterLocal;
+    private RvAdapter rvAdapterServer;
+    private RvAdapterLocal rvAdapterLocal;
 
     private RelativeLayout errorLayout;
     private ImageView errorImage;
@@ -214,7 +214,7 @@ public class ListActivityFragment extends Fragment {
 
 
     private void showServerRecyclerView() {
-        recyclerViewAdapterServer = new RecyclerViewAdapter(getActivity(), serverLocationList);
+        rvAdapterServer = new RvAdapter(getActivity(), serverLocationList);
         if(serverLocationList.isEmpty())
         {
 
@@ -226,12 +226,12 @@ public class ListActivityFragment extends Fragment {
         else {
             setMenuVisibility(true);
         }
-        recyclerView.setAdapter(recyclerViewAdapterServer);
-        recyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), recyclerView, new RecyclerViewClickListener() {
+        recyclerView.setAdapter(rvAdapterServer);
+        recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
             @Override
             public void onClick(View view, int position) {
 
-                final CountryServer countryServerItem = recyclerViewAdapterServer.getmValuesFilteredList().get(position);
+                final CountryServer countryServerItem = rvAdapterServer.getmValuesFilteredList().get(position);
 
                 onMenuItemClickServer(countryServerItem);
             }
@@ -246,14 +246,14 @@ public class ListActivityFragment extends Fragment {
     }
     private void showLocalRecyclerView() {
         setMenuVisibility(true);
-        recyclerViewAdapterLocal = new RecyclerViewAdapterLocal(getActivity(), localLocationList);
-        recyclerView.setAdapter(recyclerViewAdapterLocal);
+        rvAdapterLocal = new RvAdapterLocal(getActivity(), localLocationList);
+        recyclerView.setAdapter(rvAdapterLocal);
         progressBar.setVisibility(View.GONE);
-        recyclerView.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), recyclerView, new RecyclerViewClickListener() {
+        recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
             @Override
             public void onClick(View view, int position) {
 
-                final Country country = recyclerViewAdapterLocal.getmValuesFilteredList().get(position);
+                final Country country = rvAdapterLocal.getmValuesFilteredList().get(position);
 
                 onMenuItemClickSetting(country,location,listType);
 
@@ -648,12 +648,12 @@ public class ListActivityFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (recyclerViewAdapterServer != null) {
-                    recyclerViewAdapterServer.getFilter().filter(newText);
+                if (rvAdapterServer != null) {
+                    rvAdapterServer.getFilter().filter(newText);
                 }
-                else if (recyclerViewAdapterLocal != null)
+                else if (rvAdapterLocal != null)
                 {
-                    recyclerViewAdapterLocal.getFilter().filter(newText);
+                    rvAdapterLocal.getFilter().filter(newText);
                 }
                 return true;
             }

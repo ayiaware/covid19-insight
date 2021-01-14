@@ -22,11 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 
-import commitware.ayia.covid19.adapter.RecyclerViewAdapterNews;
+import commitware.ayia.covid19.adapter.RvAdapterNews;
 
 import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
-import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
-import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
+import commitware.ayia.covid19.interfaces.RVClickListener;
+import commitware.ayia.covid19.listeners.RVTouchListener;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
 
@@ -38,7 +38,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private OnFragmentListenerMain mListener;
     private SwipeRefreshLayout swipe;
-    private RecyclerViewAdapterNews adapter;
+    private RvAdapterNews adapter;
 
     private RelativeLayout errorLayout;
     private ImageView errorImage;
@@ -62,7 +62,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
         errorMessage = root.findViewById(R.id.errorMessage);
         btnRetry = root.findViewById(R.id.btnRetry);
 
-        adapter = new RecyclerViewAdapterNews(getContext());
+        adapter = new RvAdapterNews(getContext());
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setAdapter(adapter);
 
@@ -77,7 +77,7 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
 
         viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
-        rv.addOnItemTouchListener(new RecyclerViewTouchListener(getActivity(), rv, new RecyclerViewClickListener() {
+        rv.addOnItemTouchListener(new RVTouchListener(getActivity(), rv, new RVClickListener() {
             @Override
             public void onClick(View view, int position) {
                 final News news = adapter.getNews().get(position);

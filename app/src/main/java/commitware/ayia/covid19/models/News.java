@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class News  implements Parcelable {
+public class News implements Parcelable {
 
     @SerializedName("source")
     private SourceNews source;

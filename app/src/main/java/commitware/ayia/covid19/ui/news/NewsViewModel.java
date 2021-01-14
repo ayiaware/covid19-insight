@@ -12,14 +12,14 @@ import androidx.lifecycle.MediatorLiveData;
 
 import androidx.lifecycle.Observer;
 
-import commitware.ayia.covid19.repositories.NewsRepository;
+import commitware.ayia.covid19.repositories.NewsDataRepository;
 
-import commitware.ayia.covid19.service.Retrofit.RestApiResponse;
+import commitware.ayia.covid19.services.retrofit.news.NewsApiResponse;
 
 
 public class NewsViewModel extends AndroidViewModel {
 
-    private final MediatorLiveData<RestApiResponse> mObservableNews;
+    private final MediatorLiveData<NewsApiResponse> mObservableNews;
 
     private boolean isGetAll;
 
@@ -27,22 +27,22 @@ public class NewsViewModel extends AndroidViewModel {
 
         super(application);
 
-        NewsRepository mRepository = new NewsRepository(application);
+        NewsDataRepository mRepository = new NewsDataRepository(application);
 
         mObservableNews = new MediatorLiveData<>();
 
-        mObservableNews.addSource(mRepository.getMutableLiveData(isGetAll()), new Observer<RestApiResponse>() {
+        mObservableNews.addSource(mRepository.getMutableLiveData(isGetAll()), new Observer<NewsApiResponse>() {
             @Override
-            public void onChanged(RestApiResponse restApiResponse) {
+            public void onChanged(NewsApiResponse newsApiResponse) {
 
-                mObservableNews.setValue(restApiResponse);
+                mObservableNews.setValue(newsApiResponse);
 
             }
         });
         mRepository.getMutableLiveData(isGetAll());
     }
 
-    public LiveData<RestApiResponse> getNewsData() {
+    public LiveData<NewsApiResponse> getNewsData() {
 
      return mObservableNews;
 

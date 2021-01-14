@@ -29,22 +29,6 @@ public class AppUtils {
 
 
 
-    public static final String BASE_URL_NEWS = "https://newsapi.org/v2/";
-
-
-    public static final String ENDPOINT_TOP_HEADLINE_NEWS = "top-headlines";
-    public static final String ENDPOINT_TOP_HEADLINE = "top-headlines";
-
-    public static final String COUNTRY_URL = "https://corona.lmao.ninja/v2/countries/";
-
-    public static final String GLOBE_URL = "https://corona.lmao.ninja/v2/all";
-
-    public static final String CONTINENT_URL = "https://corona.lmao.ninja/v2/continents/";
-
-    public static final String STATE_URL = "https://covidnigeria.herokuapp.com/api";
-
-
-
 
     public static String DateFormat(String oldstringDate){
         String newDate = null;
@@ -64,15 +48,16 @@ public class AppUtils {
 
     public static String getCountry(){
         Locale locale = Locale.getDefault();
-        String country = String.valueOf(locale.getCountry());
+        String country = locale.getCountry();
         return country.toLowerCase();
     }
 
     public static String getLanguage(){
         Locale locale = Locale.getDefault();
-        String country = String.valueOf(locale.getLanguage());
+        String country = locale.getLanguage();
         return country.toLowerCase();
     }
+
 
 
 }

@@ -1,6 +1,7 @@
-package commitware.ayia.covid19.service.json;
+package commitware.ayia.covid19.services.json;
 
 import android.util.Log;
+
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,69 +11,96 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
 import commitware.ayia.covid19.AppController;
-import commitware.ayia.covid19.models.Summary;
+import commitware.ayia.covid19.AppUtilsController;
+import commitware.ayia.covid19.models.Cases;
 
-import static androidx.constraintlayout.widget.Constraints.TAG;
-import static commitware.ayia.covid19.AppUtils.GLOBE_URL;
+import static com.android.volley.VolleyLog.TAG;
+import static commitware.ayia.covid19.AppUtils.NO_INFO;
 
-public class GlobeDataRequest {
 
-    public MutableLiveData<Summary> parseJSON() {
+public class StateDataRequest {
 
-        final MutableLiveData<Summary> mutableLiveData = new MutableLiveData<>();
+    private String url;
+
+
+    public StateDataRequest() {
+
+        AppUtilsController appUtilsController = new AppUtilsController();
+        url = appUtilsController.getStateUrl();
+
+    }
+
+    public MutableLiveData<Cases> parseJSON() {
+
+        final MutableLiveData<Cases> mutableLiveData = new MutableLiveData<>();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                GLOBE_URL, null, new Response.Listener<JSONObject>() {
+                url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
+                if (response != null) {
+                    Log.e(TAG, "onResponse: " + response);
 
-                try {
-                    // Parsing json object response
-                    // response will be a json object
+                    try {
 
-                    String cases = response.getString("cases");
-                    String todayCases = response.getString("todayCases");
-                    String deaths = response.getString("deaths");
-                    String todayDeaths = response.getString("todayDeaths");
-                    String recovered = response.getString("recovered");
-                    String active = response.getString("active");
-                    String critical = response.getString("critical");
-                    String tested = response.getString("tests");
-                    Long updated = response.getLong("updated");
+                        JSONObject jsonObject = response.getJSONObject("data");
 
-                    final Summary summary = new Summary();
+                        JSONArray jsonArray = jsonObject.getJSONArray("states");
 
-                    summary.setCases(cases);
-                    summary.setTodayCases(todayCases);
-                    summary.setDeaths(deaths);
-                    summary.setTodayDeaths(todayDeaths);
-                    summary.setRecovered(recovered);
-                    summary.setActive(active);
-                    summary.setCritical(critical);
-                    summary.setTested(tested);
-                    summary.setUpdated(updated);
-                    summary.setLocation("Global");
-                    summary.setGeography("globe");
-                    mutableLiveData.setValue(summary);
+                        Cases getCases = new Cases();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject data = jsonArray.getJSONObject(i);
+
+                            String state = data.getString("state");
 
 
+                            if(state.toLowerCase().equals(AppController.getInstance().getState().toLowerCase()))
+                            {
 
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    VolleyLog.d(TAG, "Error: " + e.getMessage());
+                                final Cases summary = new Cases();
+
+                                String cases = data.getString("confirmedCases");
+                                String deaths = data.getString("death");
+                                String recovered = data.getString("discharged");
+                                String active = data.getString("casesOnAdmission");
+
+
+                                summary.setConfirmedCases(cases);
+                                summary.setTodayCases(NO_INFO);
+                                summary.setDeaths(deaths);
+                                summary.setTodayDeaths(NO_INFO);
+                                summary.setRecovered(recovered);
+                                summary.setActive(active);
+                                summary.setCritical(NO_INFO);
+                                summary.setTested(NO_INFO);
+                                summary.setUpdated(System.currentTimeMillis());
+                                summary.setLocation(state);
+
+
+                                getCases = summary;
+                            }
+
+                        }
+
+                        mutableLiveData.setValue(getCases);
+
+                        // showServerRecyclerView();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "Error: " + e.getMessage());
+                    }
                 }
-
             }
 
 
@@ -81,7 +109,7 @@ public class GlobeDataRequest {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error: " + error.getMessage());
+                        Log.d(TAG, "Error: " + error.getMessage());
 
                     }
                 }) {
@@ -126,9 +154,11 @@ public class GlobeDataRequest {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
-
         return mutableLiveData;
+
     }
+
+
 
 
 }

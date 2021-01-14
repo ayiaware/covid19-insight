@@ -1,13 +1,14 @@
-package commitware.ayia.covid19.service.Retrofit;
+package commitware.ayia.covid19.services.retrofit.cases;
 
 import java.util.concurrent.TimeUnit;
 
-import commitware.ayia.covid19.AppUtils;
+import commitware.ayia.covid19.Urls;
+import commitware.ayia.covid19.services.retrofit.RestApiService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitInstanceNews {
+public class RetrofitInstanceCases {
 
     private static final GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create();
 
@@ -19,17 +20,22 @@ public class RetrofitInstanceNews {
             .build();
 
 
-    public static RestApiServiceNews getRetrofitServiceNews(){
+
+    public static RestApiService getRetrofitServiceCases(){
+
+        String BASE_URL = Urls.BASE_URL_CASES;
 
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl(AppUtils.BASE_URL_NEWS)
+                    .baseUrl(BASE_URL)
                     .addConverterFactory(gsonConverterFactory)
                     .client(okHttpClient)
                     .build();
         }
 
-        return retrofit.create(RestApiServiceNews.class);
+        return retrofit.create(RestApiService.class);
     }
+
+
 
 }

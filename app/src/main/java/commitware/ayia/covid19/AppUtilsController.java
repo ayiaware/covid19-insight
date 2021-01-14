@@ -3,10 +3,6 @@ package commitware.ayia.covid19;
 
 import java.util.Calendar;
 
-import static commitware.ayia.covid19.AppUtils.CONTINENT_URL;
-import static commitware.ayia.covid19.AppUtils.COUNTRY_URL;
-import static commitware.ayia.covid19.AppUtils.GLOBE_URL;
-import static commitware.ayia.covid19.AppUtils.STATE_URL;
 
 public class AppUtilsController {
 
@@ -15,23 +11,20 @@ public class AppUtilsController {
     private String countryUrl;
     private String globalUrl;
 
-
     public AppUtilsController() {
 
         Calendar rightNow = Calendar.getInstance();
+
         int hour = rightNow.get(Calendar.HOUR_OF_DAY);
 
         boolean getYesterday = hour >= 6;
 
         String yesterday = "true";
-        if(!getYesterday)
-        {
+
+        if(!getYesterday) {
             yesterday = "false";
         }
-        stateUrl = STATE_URL;
-        countryUrl = COUNTRY_URL + AppController.getInstance().getCountry()+ "?yesterday="+ yesterday;
-        continentUrl = CONTINENT_URL + AppController.getInstance().getContinent()+ "?yesterday="+ yesterday;
-        globalUrl = GLOBE_URL + "?yesterday="+ yesterday;
+
 
     }
 

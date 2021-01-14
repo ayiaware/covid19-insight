@@ -27,7 +27,7 @@ Firebase
 
 APIs
 
-Data for covid 19 cases for states in nigeria
+Data for covid 19 aCases for states in nigeria
 
 https://covidnigeria.herokuapp.com/api
 

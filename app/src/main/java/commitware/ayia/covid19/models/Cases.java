@@ -1,36 +1,44 @@
 package commitware.ayia.covid19.models;
+import com.google.gson.annotations.SerializedName;
+public class Cases {
 
-public class Summary {
+    @SerializedName("cases")
+    private String cases;
 
-    private String confirmed;
-    private String todayConfirmed;
+    @SerializedName("todayCases")
+    private String todayCases;
+
+    @SerializedName("recovered")
     private String recovered;
-    private String todayRecovered;
+
+    @SerializedName("deaths")
     private String deaths;
+
+    @SerializedName("todayDeaths")
     private String todayDeaths;
+
+    @SerializedName("critical")
     private String critical;
+
+    @SerializedName("active")
     private String active;
+
+    @SerializedName("tests")
     private String tested;
-    private long  updated;
+
+    @SerializedName("updated")
+    private long updated;
+
+    @SerializedName("country")
     private String location;
-    private String geography;
 
-//    public Summary(String confirmed, String todayConfirmed, String recovered, String deaths, String todayDeaths, String critical, String active) {
-//        this.confirmed = confirmed;
-//        this.todayConfirmed = todayConfirmed;
-//        this.recovered = recovered;
-//        this.deaths = deaths;
-//        this.todayDeaths = todayDeaths;
-//        this.critical = critical;
-//        this.active = active;
-//    }
 
-    public String getConfirmed() {
-        return confirmed;
+    public String getCases() {
+        return cases;
     }
 
-    public void setCases(String confirmed) {
-        this.confirmed = confirmed;
+    public void setConfirmedCases(String confirmed) {
+        this.cases = confirmed;
     }
 
     public long getUpdated() {
@@ -57,12 +65,12 @@ public class Summary {
         this.tested = tested;
     }
 
-    public String getTodayConfirmed() {
-        return todayConfirmed;
+    public String getTodayCases() {
+        return todayCases;
     }
 
-    public void setTodayCases(String todayConfirmed) {
-        this.todayConfirmed = todayConfirmed;
+    public void setTodayCases(String todayCases) {
+        this.todayCases = todayCases;
     }
 
     public String getRecovered() {
@@ -105,20 +113,4 @@ public class Summary {
         this.active = active;
     }
 
-    public String getTodayRecovered() {
-        return todayRecovered;
-    }
-
-    public void setTodayRecovered(String todayRecovered) {
-        this.todayRecovered = todayRecovered;
-    }
-
-
-    public String getGeography() {
-        return geography;
-    }
-
-    public void setGeography(String geography) {
-        this.geography = geography;
-    }
 }

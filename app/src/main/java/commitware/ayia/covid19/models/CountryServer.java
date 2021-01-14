@@ -1,10 +1,9 @@
 package commitware.ayia.covid19.models;
-
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 public class CountryServer implements Parcelable {
+
     String mCovidCountry, mTodayCases, mDeaths, mTodayDeaths, mRecovered, mActive, mCritical, mFlags;
     int mCases;
 

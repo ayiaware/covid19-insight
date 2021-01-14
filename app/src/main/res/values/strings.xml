@@ -95,7 +95,7 @@
     <string name="quarantine1_heading">What is self isolation?</string>
     <string name="quarantine1_body">Self isolation of quarantine is an act of individuals who may have been exposed to COVID-19 separating themselves for 14 days to monitor if the develop symptoms.</string>
     <string name="quarantine2_heading">Who should self isolate?</string>
-    <string name="quarantine2_body">Anyone who has traveled within the past 14 days to a country or region with reported COVID-19 cases or has had close contact with a person showing COVID-19 symptoms.</string>
+    <string name="quarantine2_body">Anyone who has traveled within the past 14 days to a country or region with reported COVID-19 aCases or has had close contact with a person showing COVID-19 symptoms.</string>
     <string name="quarantine3_heading">Why self isolate?</string>
     <string name="quarantine3_body">Self isolation help reduce the spread of COVID-19 and reduce the chances of infecting others. We should self isolate as a way of helping others. </string>
     <string name="quarantine4_heading">Reporting Illness</string>

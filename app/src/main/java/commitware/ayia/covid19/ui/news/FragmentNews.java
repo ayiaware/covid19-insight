@@ -30,7 +30,7 @@ import commitware.ayia.covid19.listeners.RecyclerViewTouchListener;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
 
-import commitware.ayia.covid19.service.Retrofit.RestApiResponse;
+import commitware.ayia.covid19.services.retrofit.news.NewsApiResponse;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -93,15 +93,15 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
 
-    private void loadNewsData(LiveData<RestApiResponse> liveData) {
+    private void loadNewsData(LiveData<NewsApiResponse> liveData) {
 
         errorLayout.setVisibility(View.GONE);
 
         refreshNews(true);
 
-        liveData.observe(getViewLifecycleOwner(), new Observer<RestApiResponse>() {
+        liveData.observe(getViewLifecycleOwner(), new Observer<NewsApiResponse>() {
             @Override
-            public void onChanged(RestApiResponse apiResponse) {
+            public void onChanged(NewsApiResponse apiResponse) {
 
                 if (apiResponse == null) {
                     showErrorMessage(
@@ -111,8 +111,8 @@ public class FragmentNews extends Fragment implements SwipeRefreshLayout.OnRefre
                 }
                 if (apiResponse.getError() == null) {
                     // call is successful
-                    Log.i(TAG, "Data response is " + apiResponse.getPosts());
-                    adapter.setNews(apiResponse.getPosts());
+                    Log.i(TAG, "Data response is " + apiResponse.getNewsPosts());
+                    adapter.setNews(apiResponse.getNewsPosts());
                     refreshNews(false);
 
                 } else {

@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.service.json;
+package commitware.ayia.covid19.services.json;
 
 import android.content.Context;
 import android.util.Log;
@@ -22,7 +22,7 @@ import java.io.UnsupportedEncodingException;
 
 import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.AppUtilsController;
-import commitware.ayia.covid19.models.Summary;
+import commitware.ayia.covid19.models.Cases;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -40,9 +40,9 @@ public class CountryDataRequest {
         url = appUtilsController.getCountryUrl();
     }
 
-        public MutableLiveData<Summary> parseJSON() {
+        public MutableLiveData<Cases> parseJSON() {
 
-        final MutableLiveData<Summary> mutableLiveData = new MutableLiveData<>();
+        final MutableLiveData<Cases> mutableLiveData = new MutableLiveData<>();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
@@ -65,9 +65,9 @@ public class CountryDataRequest {
                     Long updated = response.getLong("updated");
                     String country = response.getString("country");
 
-                    final Summary summary = new Summary();
+                    final Cases summary = new Cases();
 
-                    summary.setCases(cases);
+                    summary.setConfirmedCases(cases);
                     summary.setTodayCases(todayCases);
                     summary.setDeaths(deaths);
                     summary.setTodayDeaths(todayDeaths);
@@ -77,7 +77,7 @@ public class CountryDataRequest {
                     summary.setTested(tested);
                     summary.setUpdated(updated);
                     summary.setLocation(country);
-                    summary.setGeography("country");
+                   // summary.setGeography("country");
                     mutableLiveData.setValue(summary);
 
 

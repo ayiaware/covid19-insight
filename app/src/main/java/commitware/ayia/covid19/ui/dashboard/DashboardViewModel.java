@@ -2,49 +2,35 @@ package commitware.ayia.covid19.ui.dashboard;
 
 
 
-import android.content.Context;
+import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 ;
-import commitware.ayia.covid19.models.Summary;
 
-import commitware.ayia.covid19.service.json.ContinentDataRequest;
-import commitware.ayia.covid19.service.json.CountryDataRequest;
-import commitware.ayia.covid19.service.json.GlobeDataRequest;
-import commitware.ayia.covid19.service.json.StateDataRequest;
+import commitware.ayia.covid19.repositories.CasesDataRepository;
+import commitware.ayia.covid19.services.retrofit.cases.CasesApiResponse;
+import commitware.ayia.covid19.services.retrofit.cases.state.CasesStateApiResponse;
 
-public class  DashboardViewModel extends ViewModel {
+public class  DashboardViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Summary> mutableLiveData;
 
-    public void getDashboardViewModel(String request, Context context) {
-        switch (request)
-        {
-            case "state":
-                StateDataRequest stateDataRequest = new StateDataRequest();
-                mutableLiveData = stateDataRequest.parseJSON();
-                break;
-                case "country":
-                CountryDataRequest countryDataRequest = new CountryDataRequest(context);
-                mutableLiveData = countryDataRequest.parseJSON();
-                break;
-            case "continent":
-                ContinentDataRequest continentDataRequest = new ContinentDataRequest();
-                mutableLiveData = continentDataRequest.parseJSON();
-                break;
-            case "globe":
-                GlobeDataRequest globeDataRequest = new GlobeDataRequest();
-                mutableLiveData = globeDataRequest.parseJSON();
-                break;
-        }
+    CasesDataRepository mRepository;
+
+    public DashboardViewModel(@NonNull Application application) {
+        super(application);
+        mRepository  = new CasesDataRepository(application);
     }
 
-    public LiveData<Summary> getStatistics() {
+    public LiveData<CasesStateApiResponse> getCasesStateResponse() {
+            return mRepository.getStateCases();
+    }
 
-        return mutableLiveData;
+    public LiveData<CasesApiResponse> getCasesResponse(String location) {
+        return mRepository.getCases(location);
+
     }
 
 

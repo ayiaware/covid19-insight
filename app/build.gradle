@@ -13,7 +13,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        buildConfigField "String", "API_NEWS", "\"d1f11693abf945ddb45d6e5a32bf82f1\""
+        buildConfigField "String", "API_NEWS", "\"your api key\""
         buildConfigField "String", "APP_TYPE", "\"covidNg\""
     }
     compileOptions {

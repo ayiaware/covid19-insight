@@ -6,12 +6,6 @@ public class Country {
     private String continent;
     private String code;  
 
-//    public Country(String name, String continent, String code) {
-//        this.name = name;
-//        this.continent = continent;
-//        this.code = code;
-//    }
-
     public String getName() {
         return name;
     }

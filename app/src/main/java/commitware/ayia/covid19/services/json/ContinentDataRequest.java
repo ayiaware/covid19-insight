@@ -1,7 +1,6 @@
-package commitware.ayia.covid19.service.json;
+package commitware.ayia.covid19.services.json;
 
 import android.util.Log;
-
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,11 +10,10 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,81 +21,68 @@ import java.io.UnsupportedEncodingException;
 
 import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.AppUtilsController;
-import commitware.ayia.covid19.models.Summary;
+import commitware.ayia.covid19.models.Cases;
 
-import static com.android.volley.VolleyLog.TAG;
-import static commitware.ayia.covid19.AppUtils.NO_INFO;
+import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
-public class StateDataRequest {
+public class ContinentDataRequest {
+
 
     private String url;
 
-
-    public StateDataRequest() {
-
+    public ContinentDataRequest() {
         AppUtilsController appUtilsController = new AppUtilsController();
-        url = appUtilsController.getStateUrl();
-
+        url = appUtilsController.getContinentUrl();
     }
 
-    public MutableLiveData<Summary> parseJSON() {
+    public MutableLiveData<Cases> parseJSON() {
 
-        final MutableLiveData<Summary> mutableLiveData = new MutableLiveData<>();
+        final MutableLiveData<Cases> mutableLiveData = new MutableLiveData<>();
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
                 url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if (response != null) {
-                    Log.e(TAG, "onResponse: " + response);
+                Log.d(TAG, response.toString());
 
-                    try {
+                try {
+                    // Parsing json object response
+                    // response will be a json object
 
-                        JSONObject jsonObject = response.getJSONObject("data");
-                        JSONArray jsonArray = jsonObject.getJSONArray("states");
-                        Summary getSummary = new Summary();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject data = jsonArray.getJSONObject(i);
+                    String cases = response.getString("cases");
+                    String todayCases = response.getString("todayCases");
+                    String deaths = response.getString("deaths");
+                    String todayDeaths = response.getString("todayDeaths");
+                    String recovered = response.getString("recovered");
+                    String active = response.getString("active");
+                    String critical = response.getString("critical");
+//                    String tested = response.getString("tests");
+                    Long updated = response.getLong("updated");
+                    String continent = response.getString("continent");
 
-                            String state = data.getString("state");
+                    final Cases summary = new Cases();
+
+                    summary.setConfirmedCases(cases);
+                    summary.setTodayCases(todayCases);
+                    summary.setDeaths(deaths);
+                    summary.setTodayDeaths(todayDeaths);
+                    summary.setRecovered(recovered);
+                    summary.setActive(active);
+                    summary.setCritical(critical);
+                    summary.setTested("N/A");
+                    summary.setUpdated(updated);
+                    summary.setLocation(continent);
+
+                    mutableLiveData.setValue(summary);
 
 
-                            if(state.toLowerCase().equals(AppController.getInstance().getState().toLowerCase()))
-                            {
 
-                                final Summary summary = new Summary();
-                                String cases = data.getString("confirmedCases");
-                                String deaths = data.getString("death");
-                                String recovered = data.getString("discharged");
-                                String active = data.getString("casesOnAdmission");
-
-
-                                summary.setCases(cases);
-                                summary.setTodayCases(NO_INFO);
-                                summary.setDeaths(deaths);
-                                summary.setTodayDeaths(NO_INFO);
-                                summary.setRecovered(recovered);
-                                summary.setActive(active);
-                                summary.setCritical(NO_INFO);
-                                summary.setTested(NO_INFO);
-                                summary.setUpdated(System.currentTimeMillis());
-                                summary.setLocation(state);
-                                summary.setGeography("state");
-
-                                getSummary = summary;
-                            }
-
-                        }
-
-                        mutableLiveData.setValue(getSummary);
-
-                        // showServerRecyclerView();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Log.d(TAG, "Error: " + e.getMessage());
-                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    VolleyLog.d(TAG, "Error: " + e.getMessage());
                 }
+
             }
 
 
@@ -106,7 +91,7 @@ public class StateDataRequest {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error: " + error.getMessage());
+                        VolleyLog.d(TAG, "Error: " + error.getMessage());
 
                     }
                 }) {
@@ -151,11 +136,9 @@ public class StateDataRequest {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq);
+
         return mutableLiveData;
-
     }
-
-
 
 
 }

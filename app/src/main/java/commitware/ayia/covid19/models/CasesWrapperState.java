@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CasesWrapper {
+public class CasesWrapperState {
 
     @SerializedName("data")
     public Cases cases;

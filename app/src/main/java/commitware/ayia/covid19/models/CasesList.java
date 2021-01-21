@@ -2,12 +2,13 @@ package commitware.ayia.covid19.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class CountryServer implements Parcelable {
+public class CasesList implements Parcelable {
 
     String mCovidCountry, mTodayCases, mDeaths, mTodayDeaths, mRecovered, mActive, mCritical, mFlags;
+
     int mCases;
 
-    public CountryServer(String mCovidCountry, int mCases, String mTodayCases, String mDeaths, String mTodayDeaths, String mRecovered, String mActive, String mCritical, String mFlags) {
+    public CasesList(String mCovidCountry, int mCases, String mTodayCases, String mDeaths, String mTodayDeaths, String mRecovered, String mActive, String mCritical, String mFlags) {
         this.mCovidCountry = mCovidCountry;
         this.mCases = mCases;
         this.mTodayCases = mTodayCases;
@@ -74,7 +75,7 @@ public class CountryServer implements Parcelable {
         dest.writeString(this.mFlags);
     }
 
-    protected CountryServer(Parcel in) {
+    protected CasesList(Parcel in) {
         this.mCovidCountry = in.readString();
         this.mCases = in.readInt();
         this.mTodayCases = in.readString();
@@ -86,15 +87,15 @@ public class CountryServer implements Parcelable {
         this.mFlags = in.readString();
     }
 
-    public static final Creator<CountryServer> CREATOR = new Creator<CountryServer>() {
+    public static final Creator<CasesList> CREATOR = new Creator<CasesList>() {
         @Override
-        public CountryServer createFromParcel(Parcel source) {
-            return new CountryServer(source);
+        public CasesList createFromParcel(Parcel source) {
+            return new CasesList(source);
         }
 
         @Override
-        public CountryServer[] newArray(int size) {
-            return new CountryServer[size];
+        public CasesList[] newArray(int size) {
+            return new CasesList[size];
         }
     };
 }

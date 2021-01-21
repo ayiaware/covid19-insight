@@ -85,7 +85,7 @@ public class StateDataRequest {
                                 summary.setCritical(NO_INFO);
                                 summary.setTested(NO_INFO);
                                 summary.setUpdated(System.currentTimeMillis());
-                                summary.setLocation(state);
+
 
 
                                 getCases = summary;

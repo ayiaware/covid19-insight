@@ -51,8 +51,7 @@ public class NewsDataRepository {
             @Override
             public void onResponse(@NonNull Call<NewsWrapper> call, @NonNull Response<NewsWrapper> response) {
 
-                if(response.isSuccessful())
-                {
+                if(response.isSuccessful()) {
                     NewsWrapper newsResponse =  response.body();
                     if (newsResponse != null  && newsResponse.getArticles() != null) {
                         liveData.postValue(new NewsApiResponse(newsResponse.getArticles()));

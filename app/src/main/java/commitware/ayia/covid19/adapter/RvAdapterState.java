@@ -14,26 +14,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.models.Cases;
-import commitware.ayia.covid19.models.CasesList;
 import commitware.ayia.covid19.R;
+import commitware.ayia.covid19.models.Cases;
+import commitware.ayia.covid19.models.CasesState;
 
 
-public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implements Filterable {
-
-  private List<Cases> mValues;
-  private List<Cases> mValuesFilteredList;
-    private Context mContext;
+public class RvAdapterState extends RecyclerView.Adapter<RvAdapterState.ViewHolder> implements Filterable {
 
 
-    public RvAdapter(Context context) {
+  private List<CasesState> mValues;
+  private List<CasesState> mValuesFilteredList = new ArrayList<>();
+  private Context mContext;
 
 
+    public RvAdapterState(Context context) {
+
+       
         mContext = context;
 
     }
-
-    public void setmValues(List<Cases>values){
+    
+    public void setmValues(List<CasesState>values){
 
         mValues = values;
 
@@ -44,7 +45,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
 
         public TextView textView;
         public TextView textView2;
-        Cases item;
+        CasesState item;
 
         public ViewHolder(View v) {
 
@@ -54,7 +55,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
 
         }
 
-        public void setData(Cases item) {
+        public void setData(CasesState item) {
             this.item = item;
             textView2.setVisibility(View.VISIBLE);
             textView.setText(item.getCases());
@@ -65,7 +66,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
 
     @NonNull
     @Override
-    public RvAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RvAdapterState.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_row, parent, false);
 
@@ -80,9 +81,9 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
 
     @Override
     public int getItemCount() {
-
-        return mValuesFilteredList.size();
+        return (null != mValues ? mValues.size() : 0);
     }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -92,12 +93,12 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
                 if (charString.isEmpty()) {
                    mValuesFilteredList = mValues;
                 } else {
-                    List<Cases> filteredList = new ArrayList<>();
-                    for (Cases row : mValues) {
+                    List<CasesState> filteredList = new ArrayList<>();
+                    for (CasesState row : mValues) {
 
                         // name match condition. this might differ depending on your requirement
                         // here we are looking for name or phone number match
-                        if (row.getCritical().toLowerCase().contains(charString.toLowerCase().trim())) {
+                        if (row.getState().toLowerCase().contains(charString.toLowerCase().trim())) {
                             filteredList.add(row);
                         }
                     }
@@ -112,14 +113,14 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> implem
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                mValuesFilteredList = (List<Cases>) filterResults.values;
+                mValuesFilteredList = (List<CasesState>) filterResults.values;
                 //mValuesFilteredList.addAll((List)filterResults.values);
                 notifyDataSetChanged();
             }
         };
     }
 
-    public List<Cases> getmValuesFilteredList() {
+    public List<CasesState> getmValuesFilteredList() {
         return mValuesFilteredList;
     }
 }

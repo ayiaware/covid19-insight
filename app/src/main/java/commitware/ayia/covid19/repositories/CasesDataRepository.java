@@ -9,12 +9,13 @@ import java.util.Calendar;
 
 import commitware.ayia.covid19.AppController;
 import commitware.ayia.covid19.models.Cases;
-import commitware.ayia.covid19.models.CasesWrapper;
-import commitware.ayia.covid19.services.retrofit.cases.CasesApiResponse;
-import commitware.ayia.covid19.services.retrofit.cases.state.CasesStateApiResponse;
+import commitware.ayia.covid19.models.CasesWrapperState;
+import commitware.ayia.covid19.services.retrofit.cases.ApiResponse;
+import commitware.ayia.covid19.services.retrofit.cases.state.ApiResponseState;
 import commitware.ayia.covid19.services.retrofit.RestApiService;
-import commitware.ayia.covid19.services.retrofit.cases.RetrofitInstanceCases;
-import commitware.ayia.covid19.services.retrofit.cases.state.RetrofitInstanceCasesState;
+import commitware.ayia.covid19.services.retrofit.cases.RetrofitInstance;
+import commitware.ayia.covid19.services.retrofit.cases.state.RetrofitInstanceState;
+import commitware.ayia.covid19.services.retrofit.news.NewsApiResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,15 +24,17 @@ public class CasesDataRepository {
 
     private final Application application;
 
-    MutableLiveData<CasesApiResponse> ld = new MutableLiveData<>();
+    MutableLiveData<ApiResponse> ld = new MutableLiveData<>();
+
+    private final MutableLiveData<NewsApiResponse> liveData = new MutableLiveData<>();
 
     public CasesDataRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<CasesApiResponse> getCases(String location) {
+    public MutableLiveData<ApiResponse> getCases(String location) {
 
-        RestApiService endpoint = RetrofitInstanceCases.getRetrofitServiceCases();
+        RestApiService endpoint = RetrofitInstance.getRetrofitServiceCases();
 
         Call<Cases> call;
 
@@ -59,7 +62,7 @@ public class CasesDataRepository {
 
                     if (casesResponse != null) {
 
-                        ld.setValue(new CasesApiResponse(casesResponse));
+                        ld.setValue(new ApiResponse(casesResponse));
                     }
                 }
 
@@ -68,7 +71,7 @@ public class CasesDataRepository {
             @Override
             public void onFailure(@NonNull Call<Cases> call, Throwable t) {
 
-                ld.setValue(new CasesApiResponse(t));
+                ld.setValue(new ApiResponse(t));
 
             }
         });
@@ -76,34 +79,34 @@ public class CasesDataRepository {
         return ld;
     }
 
-    public MutableLiveData<CasesStateApiResponse> getStateCases() {
+    public MutableLiveData<ApiResponseState> getStateCases() {
 
-        MutableLiveData<CasesStateApiResponse> ldState = new MutableLiveData<>();
+        MutableLiveData<ApiResponseState> ldState = new MutableLiveData<>();
 
-        RestApiService endpoint = RetrofitInstanceCasesState.getRetrofitServiceStateCases();
+        RestApiService endpoint = RetrofitInstanceState.getRetrofitServiceStateCases();
 
-        Call<CasesWrapper> call =  endpoint.getCasesState();
+        Call<CasesWrapperState> call =  endpoint.getCasesState();
 
-        call.enqueue(new Callback<CasesWrapper>() {
+        call.enqueue(new Callback<CasesWrapperState>() {
             @Override
-            public void onResponse(@NonNull Call<CasesWrapper> call, @NonNull Response<CasesWrapper> response) {
+            public void onResponse(@NonNull Call<CasesWrapperState> call, @NonNull Response<CasesWrapperState> response) {
 
                 if(response.isSuccessful()) {
 
-                    CasesWrapper casesResponse =  response.body();
+                    CasesWrapperState casesResponse =  response.body();
 
                     if (casesResponse != null &&  casesResponse.getCases()!=null) {
 
-                        ldState.setValue(new CasesStateApiResponse(casesResponse.getCases().getCases()));
+                        ldState.postValue(new ApiResponseState(casesResponse.getCases().getCases()));
                     }
                 }
 
             }
 
             @Override
-            public void onFailure(@NonNull Call<CasesWrapper> call, Throwable t) {
+            public void onFailure(@NonNull Call<CasesWrapperState> call, Throwable t) {
 
-                ldState.setValue(new CasesStateApiResponse(t));
+                ldState.postValue(new ApiResponseState(t));
 
             }
         });

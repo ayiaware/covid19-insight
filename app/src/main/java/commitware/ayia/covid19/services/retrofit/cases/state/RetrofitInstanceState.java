@@ -8,7 +8,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitInstanceCasesState {
+public class RetrofitInstanceState {
 
     private static final GsonConverterFactory gsonConverterFactory = GsonConverterFactory.create();
 

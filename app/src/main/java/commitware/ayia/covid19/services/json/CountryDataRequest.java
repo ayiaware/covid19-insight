@@ -76,8 +76,6 @@ public class CountryDataRequest {
                     summary.setCritical(critical);
                     summary.setTested(tested);
                     summary.setUpdated(updated);
-                    summary.setLocation(country);
-                   // summary.setGeography("country");
                     mutableLiveData.setValue(summary);
 
 

@@ -3,6 +3,7 @@ package commitware.ayia.covid19.ui.dashboard;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,8 @@ import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
 import commitware.ayia.covid19.R;
 import commitware.ayia.covid19.models.Cases;
 import commitware.ayia.covid19.models.CasesState;
-import commitware.ayia.covid19.services.retrofit.cases.CasesApiResponse;
-import commitware.ayia.covid19.services.retrofit.cases.state.CasesStateApiResponse;
+import commitware.ayia.covid19.services.retrofit.cases.ApiResponse;
+import commitware.ayia.covid19.services.retrofit.cases.state.ApiResponseState;
 
 import static commitware.ayia.covid19.AppUtils.LIST_INTENT;
 
@@ -217,11 +218,11 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 //
 //
 //    }
-    private void subscribeToUi(LiveData<CasesApiResponse> casesLiveData){
+    private void subscribeToUi(LiveData<ApiResponse> casesLiveData){
 
-        casesLiveData.observe(getViewLifecycleOwner(), new Observer<CasesApiResponse>() {
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ApiResponse>() {
             @Override
-            public void onChanged(CasesApiResponse apiResponse) {
+            public void onChanged(ApiResponse apiResponse) {
 
                 if (apiResponse == null) {
 
@@ -287,11 +288,11 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
     }
 
-    private void subscribeToUiS(LiveData<CasesStateApiResponse> casesLiveData){
+    private void subscribeToUiS(LiveData<ApiResponseState> casesLiveData){
 
-        casesLiveData.observe(getViewLifecycleOwner(), new Observer<CasesStateApiResponse>() {
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ApiResponseState>() {
             @Override
-            public void onChanged(CasesStateApiResponse apiResponse) {
+            public void onChanged(ApiResponseState apiResponse) {
 
                 if (apiResponse == null) {
 
@@ -312,8 +313,8 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
                         String critical;
                         String tested;
 
-                            CasesState aCase = apiResponse.getaCases();
-
+                            CasesState aCase = apiResponse.getCases();
+                            Log.v("subscribeToUiS", "cases List count)"+apiResponse.getCasesList().size());
                             cases = aCase.getCases();
                             recovered = aCase.getRecovered();
                             active = aCase.getActive();

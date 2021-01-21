@@ -72,7 +72,7 @@ public class ContinentDataRequest {
                     summary.setCritical(critical);
                     summary.setTested("N/A");
                     summary.setUpdated(updated);
-                    summary.setLocation(continent);
+
 
                     mutableLiveData.setValue(summary);
 

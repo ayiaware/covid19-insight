@@ -1,4 +1,4 @@
-package commitware.ayia.covid19.fragments;
+package commitware.ayia.covid19.ui.list;
 
 import android.os.Bundle;
 
@@ -12,15 +12,15 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import commitware.ayia.covid19.models.CountryServer;
+import commitware.ayia.covid19.models.CasesList;
 import commitware.ayia.covid19.R;
 
 public class ListDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private CountryServer countryServer;
+    private CasesList casesList;
 
-    private CountryServer stats;
+    private CasesList stats;
 
     private TextView tvCases;
     private TextView tvCasesToday;
@@ -33,27 +33,24 @@ public class ListDetailFragment extends Fragment {
     private TextView tvTested;
     private TextView tvHeading;
 
-
-
-
     public ListDetailFragment() {
         // Required empty public constructor
     }
 
-    public static ListDetailFragment newInstance(CountryServer countryServer) {
+    public static ListDetailFragment newInstance(CasesList casesList) {
         ListDetailFragment fragment = new ListDetailFragment();
-        fragment.setCountryServer(countryServer);
+        fragment.setCasesList(casesList);
         return fragment;
     }
 
-    private void setCountryServer(CountryServer countryServer) {
-        this.countryServer = countryServer;
+    private void setCasesList(CasesList casesList) {
+        this.casesList = casesList;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stats = countryServer;
+        stats = casesList;
     }
 
     @Override

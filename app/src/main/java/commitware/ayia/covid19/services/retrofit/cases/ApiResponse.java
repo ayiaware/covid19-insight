@@ -6,18 +6,18 @@ import commitware.ayia.covid19.models.Cases;
 import commitware.ayia.covid19.models.CasesState;
 
 
-public class CasesApiResponse {
+public class ApiResponse {
 
     private Cases aCases;
     private CasesState casesState;
     private Throwable error;
 
-    public CasesApiResponse(Cases aCases) {
+    public ApiResponse(Cases aCases) {
         this.aCases = aCases;
         this.error = null;
     }
 
-    public CasesApiResponse(Throwable error) {
+    public ApiResponse(Throwable error) {
         this.error = error;
         this.aCases = null;
     }

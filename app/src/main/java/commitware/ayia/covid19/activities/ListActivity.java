@@ -11,11 +11,11 @@ import androidx.fragment.app.FragmentManager;
 
 
 import commitware.ayia.covid19.AppController;
-import commitware.ayia.covid19.fragments.ListActivityFragment;
-import commitware.ayia.covid19.fragments.ListDetailFragment;
+import commitware.ayia.covid19.ui.list.ListFragment;
+import commitware.ayia.covid19.ui.list.ListDetailFragment;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
 import commitware.ayia.covid19.models.Country;
-import commitware.ayia.covid19.models.CountryServer;
+import commitware.ayia.covid19.models.CasesList;
 import commitware.ayia.covid19.R;
 
 
@@ -32,12 +32,12 @@ public class ListActivity extends AppCompatActivity implements OnFragmentInterac
     String location;
     private void beginListTransaction(String data, String listType)
     {
-        ListActivityFragment fragment = ListActivityFragment.newInstance(data, listType);
+        ListFragment fragment = ListFragment.newInstance(data, listType);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(fragment.getTag())
                 .commit();
     }
-    private void beginDetailsTransaction(CountryServer countryServer){
-        ListDetailFragment fragment = ListDetailFragment.newInstance(countryServer);
+    private void beginDetailsTransaction(CasesList casesList){
+        ListDetailFragment fragment = ListDetailFragment.newInstance(casesList);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment, fragment).addToBackStack(fragment.getTag()).commit();
     }
 
@@ -77,8 +77,8 @@ public class ListActivity extends AppCompatActivity implements OnFragmentInterac
     }
 
     @Override
-    public void listItemClickServer(CountryServer countryServer) {
-        beginDetailsTransaction(countryServer);
+    public void listItemClickServer(CasesList casesList) {
+        beginDetailsTransaction(casesList);
 
     }
 

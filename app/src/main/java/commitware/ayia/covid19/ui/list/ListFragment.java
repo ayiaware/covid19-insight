@@ -1,8 +1,12 @@
-package commitware.ayia.covid19.fragments;
+package commitware.ayia.covid19.ui.list;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -42,15 +47,20 @@ import java.util.List;
 import commitware.ayia.covid19.adapter.RvAdapter;
 import commitware.ayia.covid19.adapter.RvAdapterLocal;
 import commitware.ayia.covid19.AppController;
+import commitware.ayia.covid19.adapter.RvAdapterState;
 import commitware.ayia.covid19.interfaces.OnFragmentInteractionListener;
 import commitware.ayia.covid19.interfaces.RVClickListener;
 import commitware.ayia.covid19.listeners.RVTouchListener;
 import commitware.ayia.covid19.models.Country;
-import commitware.ayia.covid19.models.CountryServer;
+import commitware.ayia.covid19.models.CasesList;
 import commitware.ayia.covid19.R;
 import commitware.ayia.covid19.repositories.CountriesData;
 import commitware.ayia.covid19.repositories.StatesData;
+import commitware.ayia.covid19.services.retrofit.cases.state.ApiResponseState;
+import commitware.ayia.covid19.services.retrofit.news.NewsApiResponse;
+import commitware.ayia.covid19.ui.dashboard.DashboardViewModel;
 
+import static androidx.constraintlayout.widget.Constraints.TAG;
 import static commitware.ayia.covid19.AppUtils.LIST_TYPE_LOCAL;
 import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SERVER;
 import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SETUP;
@@ -59,7 +69,7 @@ import static commitware.ayia.covid19.AppUtils.NO_INFO;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ListActivityFragment extends Fragment {
+public class ListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
@@ -70,13 +80,13 @@ public class ListActivityFragment extends Fragment {
     private static final String ARG_GET_LIST= "listType";
 
 
-    private static final String TAG = ListActivityFragment.class.getSimpleName();
+    private static final String TAG = ListFragment.class.getSimpleName();
 
 
     private String location;
     private String listType;
 
-    private List<CountryServer> serverLocationList;
+    private List<CasesList> serverLocationList;
     private List<Country> localLocationList;
 
     private String url;
@@ -87,17 +97,22 @@ public class ListActivityFragment extends Fragment {
     private RvAdapter rvAdapterServer;
     private RvAdapterLocal rvAdapterLocal;
 
+    private RvAdapterState adapterState;
+
     private RelativeLayout errorLayout;
     private ImageView errorImage;
     private TextView errorTitle, errorMessage;
     private Button btnRetry;
 
-    public ListActivityFragment() {
+
+    DashboardViewModel dashboardViewModel;
+
+    public ListFragment() {
 
     }
 
-    public static ListActivityFragment newInstance(String param1, String param2) {
-        ListActivityFragment fragment = new ListActivityFragment();
+    public static ListFragment newInstance(String param1, String param2) {
+        ListFragment fragment = new ListFragment();
 
         Bundle args = new Bundle();
         args.putString(ARG_GET_LOCATIONS, param1);
@@ -122,7 +137,6 @@ public class ListActivityFragment extends Fragment {
         // set has option menu as true because we have menu
         setHasOptionsMenu(true);
         setMenuVisibility(false);
-        // isNetworkOk = new NetworkConnectivity(getActivity()).requestDataCallback(true);
 
         // call view
         recyclerView = root.findViewById(R.id.rvList);
@@ -130,7 +144,6 @@ public class ListActivityFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
-        //  dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.line_divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         errorLayout = root.findViewById(R.id.errorLayout);
@@ -143,13 +156,54 @@ public class ListActivityFragment extends Fragment {
         //call list
         errorLayout.setVisibility(View.GONE);
 
-        if(listType.equals(LIST_TYPE_SERVER))
-        {
+       // rvAdapterServer = new RvAdapter(getActivity());
+
+        adapterState = new RvAdapterState(getActivity());
+
+        recyclerView.setAdapter(adapterState);
+
+
+        recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+               // final CasesList casesListItem = rvAdapterServer.getmValuesFilteredList().get(position);
+
+                //onMenuItemClickServer(casesListItem);
+            }
+
+            @Override
+            public void onLongClick(View view, final int position) {
+
+            }
+        }));
+
+
+
+
+
+        return root;
+
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        super.onViewCreated(view, savedInstanceState);
+
+        dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+
+        if(listType.equals(LIST_TYPE_SERVER)) {
+
             switch (location) {
+
                 case "state":
 
-                    url = "https://covidnigeria.herokuapp.com/api";
-                    parseJSON();
+                    Log.v("SUB", "STATE");
+
+                    subscribeToUi(dashboardViewModel.getCasesStateResponse());
+
                     break;
                 case "continent":
                     url = "https://corona.lmao.ninja/v2/continents";
@@ -171,25 +225,52 @@ public class ListActivityFragment extends Fragment {
                 getActivity().setTitle(location+"s");
             }
         }
-        else if(listType.equals(LIST_TYPE_LOCAL))
-        {
+        else if(listType.equals(LIST_TYPE_LOCAL)) {
 
 
             getDataFromLocal();
         }
-        else if(listType.equals(LIST_TYPE_SETUP))
-        {
+        else if(listType.equals(LIST_TYPE_SETUP)) {
 
 
             getDataFromLocal();
         }
 
+    }
+    private void subscribeToUi(LiveData<ApiResponseState> liveData) {
+
+        errorLayout.setVisibility(View.GONE);
+        Log.v("SUB", "SUBCRIBRD");
+        liveData.observe(getViewLifecycleOwner(), new Observer<ApiResponseState>() {
+            @Override
+            public void onChanged(ApiResponseState apiResponse) {
+
+                if (apiResponse == null) {
+
+                    showErrorMessage(
+                            R.drawable.oops,
+                            "Oops..",
+                            "Check internet");
+                    //return;
+                }
+                else if (apiResponse.getError() == null) {
+                    setMenuVisibility(true);
+                    Log.v("SUB", "NOT ERROr"+apiResponse.getCasesList().size());
+                    adapterState.setmValues(apiResponse.getCasesList());
+
+                } else {
+
+                    showErrorMessage(
+                            R.drawable.oops,
+                            "Oops..",
+                            "Something went wrong");
+                   // return;
+                }
+
+            }
 
 
-
-
-
-        return root;
+        });
 
     }
 
@@ -214,33 +295,10 @@ public class ListActivityFragment extends Fragment {
 
 
     private void showServerRecyclerView() {
-        rvAdapterServer = new RvAdapter(getActivity(), serverLocationList);
-        if(serverLocationList.isEmpty())
-        {
 
-            showErrorMessage(
-                    R.drawable.oops,
-                    "Oops..",
-                    "Check internet");
-        }
-        else {
-            setMenuVisibility(true);
-        }
-        recyclerView.setAdapter(rvAdapterServer);
-        recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
-            @Override
-            public void onClick(View view, int position) {
 
-                final CountryServer countryServerItem = rvAdapterServer.getmValuesFilteredList().get(position);
 
-                onMenuItemClickServer(countryServerItem);
-            }
 
-            @Override
-            public void onLongClick(View view, final int position) {
-
-            }
-        }));
 
 
     }
@@ -286,7 +344,7 @@ public class ListActivityFragment extends Fragment {
                             switch (location) {
                                 case "country":
                                     JSONObject countryInfo = data.getJSONObject("countryInfo");
-                                    serverLocationList.add(new CountryServer(
+                                    serverLocationList.add(new CasesList(
                                             data.getString("country"), data.getInt("cases"),
                                             data.getString("todayCases"), data.getString("deaths"),
                                             data.getString("todayDeaths"), data.getString("recovered"),
@@ -297,7 +355,7 @@ public class ListActivityFragment extends Fragment {
                                     break;
                                 case "continent":
 
-                                    serverLocationList.add(new CountryServer(
+                                    serverLocationList.add(new CasesList(
                                             data.getString("continent"), data.getInt("cases"),
                                             data.getString("todayCases"), data.getString("deaths"),
                                             data.getString("todayDeaths"), data.getString("recovered"),
@@ -311,7 +369,7 @@ public class ListActivityFragment extends Fragment {
 
                                     int cases = Integer.parseInt(data.getString("confirmedCases"));
 
-                                    serverLocationList.add(new CountryServer(
+                                    serverLocationList.add(new CasesList(
                                             data.getString("state"), cases,
                                             NO_INFO, data.getString("deaths"),
                                             NO_INFO, data.getString("discharged"),
@@ -325,9 +383,9 @@ public class ListActivityFragment extends Fragment {
                         }
 
                         // sort descending
-                        Collections.sort(serverLocationList, new Comparator<CountryServer>() {
+                        Collections.sort(serverLocationList, new Comparator<CasesList>() {
                             @Override
-                            public int compare(CountryServer o1, CountryServer o2) {
+                            public int compare(CasesList o1, CasesList o2) {
                                 if (o1.getConfirmed() > o2.getConfirmed()) {
                                     return -1;
                                 } else {
@@ -367,88 +425,6 @@ public class ListActivityFragment extends Fragment {
                     }
                 });
         Volley.newRequestQueue(getActivity()).add(stringRequest);
-    }
-
-    private void getDataFromServerSortAlphabet() {
-        errorLayout.setVisibility(View.GONE);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                progressBar.setVisibility(View.GONE);
-                if (response != null) {
-                    Log.e(TAG, "onResponse: " + response);
-                    try {
-                        JSONArray jsonArray = new JSONArray(response);
-                        serverLocationList = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject data = jsonArray.getJSONObject(i);
-
-
-                            // Extract JSONObject inside JSONObject
-                            switch (location) {
-                                case "country":
-                                    JSONObject countryInfo = data.getJSONObject("countryInfo");
-                                    serverLocationList.add(new CountryServer(
-                                            data.getString("country"), data.getInt("cases"),
-                                            data.getString("todayCases"), data.getString("deaths"),
-                                            data.getString("todayDeaths"), data.getString("recovered"),
-                                            data.getString("active"), data.getString("critical"),
-                                            data.getString("tests")
-                                    ));
-                                    getActivity().setTitle(jsonArray.length() + " countries");
-                                    break;
-                                case "continent":
-
-                                    serverLocationList.add(new CountryServer(
-                                            data.getString("continent"), data.getInt("cases"),
-                                            data.getString("todayCases"), data.getString("deaths"),
-                                            data.getString("todayDeaths"), data.getString("recovered"),
-                                            data.getString("active"), data.getString("critical"),
-                                            NO_INFO
-                                    ));
-                                    getActivity().setTitle(jsonArray.length() + " continents");
-                                    break;
-                                case "state":
-                                    //  int cases = Integer.parseInt(data.getString("No_of_cases").replaceAll(",", ""));
-
-                                    int cases = Integer.parseInt(data.getString("confirmedCases"));
-
-                                    serverLocationList.add(new CountryServer(
-                                            data.getString("state"), cases,
-                                            NO_INFO, data.getString("deaths"),
-                                            NO_INFO, data.getString("discharged"),
-                                            data.getString("casesOnAdmission"), NO_INFO,
-                                            NO_INFO
-                                    ));
-                                    getActivity().setTitle(jsonArray.length() + " states");
-                                    break;
-                            }
-                        }
-
-                        // Action Bar Title
-
-
-                        showServerRecyclerView();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressBar.setVisibility(View.GONE);
-                        Log.e(TAG, "onResponse: " + error);showErrorMessage(
-                                R.drawable.no_result,
-                                "Check your Network",
-                                "Try Again!\n");
-
-                    }
-                });
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(stringRequest);
     }
 
     public void parseJSON() {
@@ -502,7 +478,7 @@ public class ListActivityFragment extends Fragment {
                             String recovered = data.getString("discharged");
                             String active = data.getString("casesOnAdmission");
 
-                            serverLocationList.add(new CountryServer(
+                            serverLocationList.add(new CasesList(
                                     state, cases,
                                     NO_INFO, deaths,
                                     NO_INFO, recovered,
@@ -513,9 +489,9 @@ public class ListActivityFragment extends Fragment {
                         }
 
                         // sort descending
-                        Collections.sort(serverLocationList, new Comparator<CountryServer>() {
+                        Collections.sort(serverLocationList, new Comparator<CasesList>() {
                             @Override
-                            public int compare(CountryServer o1, CountryServer o2) {
+                            public int compare(CasesList o1, CasesList o2) {
                                 if (o1.getConfirmed() > o2.getConfirmed()) {
                                     return -1;
                                 } else {
@@ -570,7 +546,6 @@ public class ListActivityFragment extends Fragment {
 
 
     }
-
 
     private void getDataFromLocal()
     {
@@ -633,13 +608,7 @@ public class ListActivityFragment extends Fragment {
         SearchView searchView = new SearchView(getActivity());
         searchView.setQueryHint("Search...");
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        MenuItem itemCases = menu.findItem(R.id.action_sort_cases);
-        MenuItem itemAlpaha = menu.findItem(R.id.action_sort_alpha);
-        if(listType.equals(LIST_TYPE_LOCAL)||location.equals("state"))
-        {
-            itemCases.setVisible(false);
-            itemAlpaha.setVisible(false);
-        }
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -665,39 +634,15 @@ public class ListActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_sort_alpha:
 
-                if(listType.equals(LIST_TYPE_SERVER))
-                {
-                    Toast.makeText(getContext(), "Sort Alphabetically", Toast.LENGTH_SHORT).show();
-                    serverLocationList.clear();
-                    progressBar.setVisibility(View.VISIBLE);
-                    getDataFromServerSortAlphabet();
-                }
-
-                return true;
-
-            case R.id.action_sort_cases:
-                if(listType.equals(LIST_TYPE_SERVER))
-                {
-                    progressBar.setVisibility(View.VISIBLE);
-                    serverLocationList.clear();
-                    Toast.makeText(getContext(), "Sort by Total Cases", Toast.LENGTH_SHORT).show();
-                    getDataFromServerSortTotalCases();
-                }
-                return true;
-
-
-        }
         return super.onOptionsItemSelected(item);
     }
 
 
-    public void onMenuItemClickServer(CountryServer countryServer) {
+    public void onMenuItemClickServer(CasesList casesList) {
         if (mListener != null) {
-            getActivity().setTitle(countryServer.getmCovidCountry());
-            mListener.listItemClickServer(countryServer);
+            getActivity().setTitle(casesList.getmCovidCountry());
+            mListener.listItemClickServer(casesList);
 
         }
     }

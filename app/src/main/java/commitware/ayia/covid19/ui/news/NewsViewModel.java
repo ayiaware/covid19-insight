@@ -38,8 +38,11 @@ public class NewsViewModel extends AndroidViewModel {
                 mObservableNews.setValue(newsApiResponse);
 
             }
+
         });
+
         mRepository.getMutableLiveData(isGetAll());
+
     }
 
     public LiveData<NewsApiResponse> getNewsData() {

@@ -29,9 +29,21 @@ public class Cases {
     @SerializedName("updated")
     private long updated;
 
-    @SerializedName("country")
-    private String location;
+    public Cases() {
+    }
 
+    public Cases(String cases, String todayCases, String recovered, String deaths, String todayDeaths,
+                 String critical, String active, String tested, long updated) {
+        this.cases = cases;
+        this.todayCases = todayCases;
+        this.recovered = recovered;
+        this.deaths = deaths;
+        this.todayDeaths = todayDeaths;
+        this.critical = critical;
+        this.active = active;
+        this.tested = tested;
+        this.updated = updated;
+    }
 
     public String getCases() {
         return cases;
@@ -47,14 +59,6 @@ public class Cases {
 
     public void setUpdated(long updated) {
         this.updated = updated;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getTested() {
@@ -112,5 +116,6 @@ public class Cases {
     public void setActive(String active) {
         this.active = active;
     }
+
 
 }

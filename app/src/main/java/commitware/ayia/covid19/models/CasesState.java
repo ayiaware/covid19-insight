@@ -15,6 +15,9 @@ public class CasesState {
     @SerializedName("casesOnAdmission")
     private String active;
 
+    @SerializedName("state")
+    private String state;
+
 
     public String getCases() {
         return cases;
@@ -48,5 +51,11 @@ public class CasesState {
         this.active = active;
     }
 
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state;
+    }
 }

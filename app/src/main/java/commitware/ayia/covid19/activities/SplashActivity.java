@@ -34,12 +34,13 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 SharedPreferences getSharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 boolean isFirstStart = getSharedPreferences.getBoolean("firstStart", true);
-                if(isFirstStart)
-                {
+                if(isFirstStart) {
+
                     String state = AppController.getInstance().getState();
                     Toast.makeText(SplashActivity.this,""+ AppUtils.getCountry()+" "+AppUtils.getLanguage(),Toast.LENGTH_LONG).show();
-                    if(state==null||state.equals(""))
-                    {
+
+                    if(state==null||state.equals("")) {
+
                         Intent it = new Intent(SplashActivity.this, ListActivity.class);
                         it.putExtra(LIST_REQUEST, LOCATION_STATE);
                         it.putExtra(LIST_TYPE, LIST_TYPE_SETUP);
@@ -59,11 +60,7 @@ public class SplashActivity extends AppCompatActivity {
                     overridePendingTransition(0,0);
                 }
 
-
-
                 SplashActivity.this.finish();
-
-
 
             }
         }, 2000);

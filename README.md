@@ -8,8 +8,7 @@ It provides relevant information on guidelines and also Helplines for each state
 ## Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
 
 
-view Demo on YouTube
-https://youtu.be/9q7elJWsRjg
+ [Demo on YouTube](https://youtu.be/9q7elJWsRjg)
 
 
 

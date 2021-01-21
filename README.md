@@ -8,7 +8,7 @@ It provides relevant information on guidelines and also Helplines for each state
 ## Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
 
 
- [Demo on YouTube](https://youtu.be/9q7elJWsRjg)
+ [Video demo](https://youtu.be/9q7elJWsRjg)
 
 
 
@@ -33,12 +33,12 @@ Firebase
 
 Data for covid 19 aCases for states in nigeria
 
-https://covidnigeria.herokuapp.com/api
+(https://covidnigeria.herokuapp.com/api)
 
 
 Data for all countries and continents
 
-https://corona.lmao.ninja/
+(https://corona.lmao.ninja/)
 
 
 
@@ -47,7 +47,8 @@ https://corona.lmao.ninja/
 News:
 
 Shows news update of all related to health.
-API https://newsapi.org/
+
+ [newsapi.org] (https://newsapi.org/)
 
 
 Settings:  

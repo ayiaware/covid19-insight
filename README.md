@@ -31,14 +31,10 @@ Firebase
 
 ## APIs
 
-Data for covid 19 aCases for states in nigeria
-
-(https://covidnigeria.herokuapp.com/api)
+ [Data for covid 19 aCases for states in nigeria](https://covidnigeria.herokuapp.com/api)
 
 
-Data for all countries and continents
-
-(https://corona.lmao.ninja/)
+ [Data for all countries and continents](https://corona.lmao.ninja/)
 
 
 
@@ -48,7 +44,7 @@ News:
 
 Shows news update of all related to health.
 
- [newsapi.org] (https://newsapi.org/)
+ [newsapi.org](https://newsapi.org/)
 
 
 Settings:  

@@ -7,6 +7,7 @@ It provides relevant information on guidelines and also Helplines for each state
 
 ## Note: This app is not built for commercial purposes and is no longer in production hence this app is only for illustrative purposes.
 
+This is one of the few projects i have made public, hence i will be making more updates to the code as time goes on. feel free to fork clone or watch this project.
 
  [Video demo](https://youtu.be/9q7elJWsRjg)
 
@@ -23,8 +24,6 @@ Reftrofit2
 Gson
 
 Glide
-
-Firebase
 
 
 
@@ -55,6 +54,10 @@ Send feedback.
 
 Change locations.
 
+
+##future Updates
+
+Room for local persitance
 
 
 ![demo image](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)

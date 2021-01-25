@@ -58,6 +58,7 @@ Change locations.
  ## future Updates
 
 Room for local persitance
+Automated testing.
 
 
 ![demo image](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)

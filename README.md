@@ -57,7 +57,13 @@ Change locations.
 
  ## future Updates
 
-Room for local persitance
+Room for local persitance.
+
+More reductions to boiler plated code.
+
+More implementation of sepration of concerns.
+
+Creating a web api for Guildlines and helpines and persit them locally with room (these will have a separate repo.i will use django and python).
 
 Automated testing.
 

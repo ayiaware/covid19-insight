@@ -11,7 +11,7 @@
 
     <color name="windowBackground">#FFFFFF</color>
 
-
+    <color name="popUp">#FFFFFF</color>
     <color name="colorCases">#2E2C2C</color>
     <color name="colorCasesToday">#2E2C2C</color>
 
@@ -22,11 +22,6 @@
     <color name="colorDeaths">#D50000</color>
 
     <color name="colorActive">#43A047</color>
-
-<!--    <color name="colorCases">#FFA000</color>-->
-
-<!--    <color name="colorRecovered">#0288D1</color>-->
-
 
 
     <color name="colorTested">#0288D1</color>

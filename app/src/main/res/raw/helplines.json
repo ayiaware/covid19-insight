@@ -1,0 +1,54 @@
+{
+  "Anambra" : [ {
+    "FIELD1" : "09145434416",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08117567363",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "09033805959",
+    "FIELD3" : "Whatsapp"
+  }, {
+    "FIELD1" : "09074285546",
+    "FIELD3" : "SMS"
+  } ],
+  "Kaduna" : [ {
+    "FIELD1" : "08035871662",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08025088304",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08032401473",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08037808191",
+    "FIELD3" : "Phone"
+  } ],
+  "Kano" : [ {
+    "FIELD1" : "08039704476",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08037038597",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "09093995333",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "09093995444",
+    "FIELD3" : "Phone"
+  } ],
+  "Lagos" : [ {
+    "FIELD1" : "08023169485",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08033565529",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08052817243",
+    "FIELD3" : "Phone"
+  }, {
+    "FIELD1" : "08028971864",
+    "FIELD3" : "Phone"
+  } ]
+}

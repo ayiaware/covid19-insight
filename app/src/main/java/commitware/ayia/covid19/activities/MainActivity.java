@@ -1,40 +1,47 @@
 package commitware.ayia.covid19.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.widget.ImageViewCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
+import androidx.navigation.NavGraph;
+import androidx.navigation.NavInflater;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import commitware.ayia.covid19.BasicApp;
+import commitware.ayia.covid19.interfaces.FragmentInteraction;
+import commitware.ayia.covid19.models.Location;
 import commitware.ayia.covid19.models.News;
 import commitware.ayia.covid19.R;
+import commitware.ayia.covid19.utils.CSVReader;
 
-import static commitware.ayia.covid19.AppUtils.LIST_INTENT;
-import static commitware.ayia.covid19.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.AppUtils.LIST_TYPE_SERVER;
-import static commitware.ayia.covid19.AppUtils.SLIDER_INTENT;
+import static commitware.ayia.covid19.utils.AppUtils.SLIDER_INTENT;
 
-public class MainActivity extends AppCompatActivity implements OnFragmentListenerMain {
-
+public class MainActivity extends AppCompatActivity implements FragmentInteraction {
+    AppBarConfiguration appBarConfiguration;
+    boolean isShow = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,43 +51,62 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = null;
-
-            appBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.navigation_helpline, R.id.navigation_dashboard, R.id.navigation_info, R.id.navigation_news)
-                    .build();
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                    R.id.navigation_helpline, R.id.navigation_dashboard, R.id.navigation_info,
+                    R.id.navigation_news).build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        NavInflater navInflater = navController.getNavInflater();
+        NavGraph graph = navInflater.inflate(R.navigation.mobile_navigation);
+
+//        SharedPreferences getSharedPreferences = androidx.preference.PreferenceManager
+//                .getDefaultSharedPreferences(getApplicationContext());
+//
+//        boolean isFirstStart = getSharedPreferences.getBoolean("firstStart", true);
+
+        boolean  isFirstStart = BasicApp.getInstance().isFirstStart();
+
+        if (isFirstStart) {
+            graph.setStartDestination(R.id.listFragment);
+        } else {
+            graph.setStartDestination(R.id.navigation_dashboard);
+        }
+
+        navController.setGraph(graph);
+
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-
-                if (destination.getLabel() != null) {
-
-                  String current = destination.getLabel().toString();
-
-                    if(current.equals(getResources().getString(R.string.title_dashboard))) {
-
-
-
-                    }
-
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.listFragment ||destination.getId() == R.id.listDetailFragment) {
+                    navView.setVisibility(View.GONE);
+                    isShow = false;
+                } else {
+                    navView.setVisibility(View.VISIBLE);
+                    isShow = true;
                 }
+                updateOptionsMenu();
             }
         });
-
-
     }
 
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item = menu.findItem(R.id.action_settings);
+        item.setVisible(isShow);
 
         return true;
     }
+    public void updateOptionsMenu() {
+//        isShow = !isShow;
+        invalidateOptionsMenu();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -98,17 +124,13 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @Override
     public void getListIntent(String intent, String argument) {
-        if (intent.equals(LIST_INTENT)) {
-            Intent it = new Intent(MainActivity.this, ListActivity.class);
-            it.putExtra(LIST_REQUEST, argument);
-            it.putExtra(LIST_TYPE, LIST_TYPE_SERVER);
-            startActivity(it);
-            overridePendingTransition(0,0);
-        }
+
         if (intent.equals(SLIDER_INTENT)) {
-            Intent it = new Intent(MainActivity.this, SliderActivity.class);
+            Intent it = new Intent(MainActivity.this, GuidelinesActivity.class);
             it.putExtra("sliderRequest", argument);
             startActivity(it);
             overridePendingTransition(0,0);
@@ -118,16 +140,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
 
     @Override
     public void getNewsIntent(News news) {
-        Intent it = new Intent(MainActivity.this, NewsDetailsActivity.class);
-        it.putExtra(NewsDetailsActivity.PARCELABLE_PARSING_DATA, news);
+        Intent it = new Intent(MainActivity.this, NewsActivity.class);
+        it.putExtra(NewsActivity.PARCELABLE_PARSING_DATA, news);
         startActivity(it);
         overridePendingTransition(0,0);
     }
 
     @Override
     public void getCallHelplineIntent(String helpline, String intent) {
-        switch (intent)
-        {
+        switch (intent) {
             case "Whatsapp":
                 sendViaWhatsApp(helpline);
                 break;
@@ -141,14 +162,12 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
 
     }
 
-
     @Override
-    public void onBackPressed() {
-        finish();
-        super.onBackPressed();
-
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
     }
-
 
     private void sendViaWhatsApp(String helpline) {
         String url = "https://api.whatsapp.com/send?phone=" + "+234"+ helpline.substring(1);
@@ -172,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         }
     }
 
-
     private void sentViaSMS(String helpline) {
         Intent intentSMS = new Intent(Intent.ACTION_VIEW);
         intentSMS.setData(Uri.parse("smsto:"+helpline));  // This ensures only SMS apps respond
@@ -184,14 +202,11 @@ public class MainActivity extends AppCompatActivity implements OnFragmentListene
         }
     }
 
-
     private void makePhoneCall(String helpline) {
         Intent intentCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + helpline));
         if (intentCall.resolveActivity(getPackageManager()) != null) {
             startActivity(intentCall);
         }
     }
-
-
 
 }

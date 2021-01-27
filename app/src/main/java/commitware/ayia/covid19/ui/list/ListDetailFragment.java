@@ -2,26 +2,30 @@ package commitware.ayia.covid19.ui.list;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import commitware.ayia.covid19.models.CasesList;
+import commitware.ayia.covid19.models.Insight;
 import commitware.ayia.covid19.R;
+import commitware.ayia.covid19.ui.dashboard.DashboardFragment;
+import commitware.ayia.covid19.utils.AppUtils;
 
 public class ListDetailFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private CasesList casesList;
 
-    private CasesList stats;
-
+    private static final String TAG = ListDetailFragment.class.getSimpleName();
     private TextView tvCases;
     private TextView tvCasesToday;
     private TextView tvRecovered;
@@ -37,27 +41,16 @@ public class ListDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ListDetailFragment newInstance(CasesList casesList) {
-        ListDetailFragment fragment = new ListDetailFragment();
-        fragment.setCasesList(casesList);
-        return fragment;
-    }
-
-    private void setCasesList(CasesList casesList) {
-        this.casesList = casesList;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        stats = casesList;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View root = inflater.inflate(R.layout.fragment_list_detail, container, false);
+        final View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+       RadioGroup rgFilter = root.findViewById(R.id.radioFilter);
+       rgFilter.setVisibility(View.GONE);
+
 
         tvCases = root.findViewById(R.id.tvOne);
         tvCasesToday = root.findViewById(R.id.tvCasesToday);
@@ -70,26 +63,45 @@ public class ListDetailFragment extends Fragment {
         tvTested = root.findViewById(R.id.tvTested);
         tvHeading = root.findViewById(R.id.tvHeading);
 
-
-        tvCases.setText(String.valueOf(stats.getConfirmed()));
-        tvCasesToday.setText(stats.getTodayConfirmed());
-        tvRecovered.setText(stats.getRecovered());
-        tvDeaths.setText(stats.getDeaths());
-        tvDeathsToday.setText(stats.getTodayDeaths());
-        tvCritical.setText(stats.getCritical());
-        tvActive.setText(stats.getActive());
-        tvTested.setText(stats.getmFlags());
-
-        //String date = "Last Updated"+"\n"+getDate(stats.getUpdated());
-       // tvUpdated.setText(date);
-        String heading = stats.getmCovidCountry()+" Cases";
-        tvHeading.setText(heading);
-
-
         return root;
     }
 
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ListViewModel listViewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
+
+        listViewModel.getInsight().observe(getViewLifecycleOwner(), new Observer<Insight>() {
+            @Override
+            public void onChanged(@Nullable Insight insight) {
+
+                Log.v(TAG, "INSIGHT: NAME "+insight.getName());
+
+                tvCases.setText(String.valueOf(insight.getCases()));
+                tvCasesToday.setText(insight.getTodayCases());
+                tvRecovered.setText(insight.getRecovered());
+                tvDeaths.setText(insight.getDeaths());
+                tvDeathsToday.setText(insight.getTodayDeaths());
+                tvCritical.setText(insight.getCritical());
+                tvActive.setText(insight.getActive());
+                tvTested.setText(insight.getTested());
+
+
+                if(insight.getUpdated()!=Long.parseLong(AppUtils.BLANK)){
+                    String  date = "Last Updated"+"\n"+getDate(insight.getUpdated());
+                    tvUpdated.setText(date);
+                }
+                else {
+                    tvUpdated.setVisibility(View.GONE);
+                }
+
+                String heading = insight.getName().toUpperCase();
+                tvHeading.setText(heading);
+            }
+        });
+    }
 
 
 

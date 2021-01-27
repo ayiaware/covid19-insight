@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -24,23 +26,29 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import commitware.ayia.covid19.AppController;
+import commitware.ayia.covid19.models.Location;
+import commitware.ayia.covid19.ui.list.ListFragment;
+import commitware.ayia.covid19.utils.AppUtils;
+import commitware.ayia.covid19.BasicApp;
 
-import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
+import commitware.ayia.covid19.interfaces.FragmentInteraction;
 
 import commitware.ayia.covid19.R;
-import commitware.ayia.covid19.models.Cases;
-import commitware.ayia.covid19.models.CasesState;
-import commitware.ayia.covid19.services.retrofit.cases.ApiResponse;
-import commitware.ayia.covid19.services.retrofit.cases.state.ApiResponseState;
 
-import static commitware.ayia.covid19.AppUtils.LIST_INTENT;
+import commitware.ayia.covid19.models.Continent;
+import commitware.ayia.covid19.models.Country;
+import commitware.ayia.covid19.models.Globe;
+import commitware.ayia.covid19.models.State;
+import commitware.ayia.covid19.services.retrofit.insight.ResponseContinent;
+import commitware.ayia.covid19.services.retrofit.insight.ResponseCountry;
+import commitware.ayia.covid19.services.retrofit.insight.ResponseGlobe;
+import commitware.ayia.covid19.services.retrofit.insight.state.ResponseState;
 
 public class DashboardFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private DashboardViewModel dashboardViewModel;
-
-    private OnFragmentListenerMain mListener;
+    private InsightViewModel insightViewModel;
+    private static final String TAG = DashboardFragment.class.getSimpleName();
+    private FragmentInteraction mListener;
 
     private TextView tvCases;
     private TextView tvCasesToday;
@@ -52,21 +60,31 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     private TextView tvUpdated;
     private TextView tvTested;
     private TextView tvHeading;
-    private TextView tvNetwork;
-    private String locationDataRequest;
+    private String location;
 
     private ExtendedFloatingActionButton fab;
     String fabText;
     private SwipeRefreshLayout swipe;
-    RadioGroup radioFilter;
+    RadioGroup rgLocations;
 
+    Location userLocation;
+
+    RadioButton radioState;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, final Bundle savedInstanceState) {
 
         final View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
-        radioFilter = root.findViewById(R.id.radioFilter);
+        BasicApp app = BasicApp.getInstance();
+
+        userLocation = app.getLocation();
+
+        app.setFirstStart(false);
+
+        rgLocations = root.findViewById(R.id.radioFilter);
+
+        rgLocations.setVisibility(View.VISIBLE);
 
         swipe= root.findViewById(R.id.swipeView);
         tvCases = root.findViewById(R.id.tvOne);
@@ -79,16 +97,23 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
         tvUpdated = root.findViewById(R.id.tvLastUpdated);
         tvTested = root.findViewById(R.id.tvTested);
         tvHeading = root.findViewById(R.id.tvHeading);
-        tvNetwork = root.findViewById(R.id.tvNetwork);
 
         fab = root.findViewById(R.id.floatingActionButton);
 
-            final RadioButton radioState = root.findViewById(R.id.radioState);
-            radioState.setVisibility(View.VISIBLE);
-            locationDataRequest = "state";
-            radioFilter.check(R.id.radioState);
+        radioState = root.findViewById(R.id.radioState);
 
-        fab.setOnClickListener(v -> startIntent(locationDataRequest));
+        radioState.setVisibility(View.GONE);
+
+        location = AppUtils.COUNTRY;
+
+        if(userLocation.getCountry().equals("Nigeria")){
+            location = AppUtils.STATE;
+            radioState.setVisibility(View.VISIBLE);
+        }
+
+
+
+
         swipe.setOnRefreshListener(this);
 
         return root;
@@ -97,132 +122,211 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-      super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
 
-      dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
+        insightViewModel = new ViewModelProvider(requireActivity()).get(InsightViewModel.class);
 
-      setText();
+        subscribeToUi();
 
-        if(locationDataRequest.equals("state"))
-            subscribeToUiS(dashboardViewModel.getCasesStateResponse());
-        else
-            subscribeToUi(dashboardViewModel.getCasesResponse(locationDataRequest));
+        rgLocations.check(R.id.radioState);
 
-        radioFilter.setOnCheckedChangeListener((group, checkedId) -> {
+        setText();
 
-           RadioButton radioButton = view.findViewById(checkedId);
+        rgLocations.setOnCheckedChangeListener((group, checkedId) -> {
 
-            locationDataRequest = radioButton.getText().toString();
+            RadioButton radioButton = view.findViewById(checkedId);
+
+            location = radioButton.getText().toString();
 
             setText();
 
-              if(locationDataRequest.equals("state"))
-                  subscribeToUiS(dashboardViewModel.getCasesStateResponse());
-              else
-                  subscribeToUi(dashboardViewModel.getCasesResponse(locationDataRequest));
+            subscribeToUi();
+
+        });
+
+        fab.setOnClickListener(v -> {
+
+            DashboardFragmentDirections.ActionDashboardToListFragment action =
+                    DashboardFragmentDirections.actionDashboardToListFragment();
+            action.setLocation(location);
+            action.setType(AppUtils.SERVER);
+            Navigation.findNavController(view).navigate(action);
 
 
-          });
+        });
 
 
     }
 
-//    private void subscribeToUi(LiveData<CaseApiResponse> casesLiveData){
-//
-//        casesLiveData.observe(getViewLifecycleOwner(), new Observer<CaseApiResponse>() {
-//            @Override
-//            public void onChanged(CaseApiResponse apiResponse) {
-//
-//                if (apiResponse == null) {
-//
-//                    removeText();
-//
-//                }
-//                else {
-//                    if (apiResponse.getError() == null) {
-//
-//                        String cases;
-//                        String active;
-//                        String recovered;
-//                        String deaths;
-//                        String updated;
-//
-//                        String casesToday;
-//                        String deathsToday;
-//                        String critical;
-//                        String tested;
-//
-//                        if(!locationDataRequest.equals("state")){
-//
-//                            Case aCase = apiResponse.getaCase();
-//
-//                            cases = aCase.getCases();
-//                            recovered = aCase.getRecovered();
-//                            active = aCase.getActive();
-//                            deaths = aCase.getDeaths();
-//                            casesToday = aCase.getTodayCases();
-//                            deathsToday = aCase.getTodayDeaths();
-//                            critical = aCase.getCritical();
-//                            tested = aCase.getTested();
-//
-//
-//                            updated = "Last Updated"+"\n"+getDate(aCase.getUpdated());
-//
-//                        }
-//
-//                        else {
-//                            CaseState aCase = apiResponse.getCaseState();
-//
-//                            cases = aCase.getCases();
-//                            recovered = aCase.getRecovered();
-//                            active = aCase.getActive();
-//                            deaths = aCase.getDeaths();
-//
-//                            casesToday = "--";
-//                            deathsToday = "--";
-//                            critical = "--";
-//                            tested = "--";
-//
-//                            updated = "";
-//
-//
-//                        }
-//
-//                        tvNetwork.setVisibility(View.GONE);
-//
-//                        tvCases.setText(cases);
-//                        tvCasesToday.setText(casesToday);
-//                        tvRecovered.setText(recovered);
-//                        tvDeaths.setText(deaths);
-//                        tvDeathsToday.setText(deathsToday);
-//                        tvCritical.setText(critical);
-//                        tvActive.setText(active);
-//                        tvTested.setText(tested);
-//
-//
-//                        tvUpdated.setText(updated);
-//
-////                        String heading = cases.getLocation()+" Cases";
-////
-////                        if(heading != null)
-////                        tvHeading.setText(heading);
-//
-//                    } else {
-//                        removeText();
-//                    }
-//                }
-//
-//            }
-//        });
-//
-//
-//    }
-    private void subscribeToUi(LiveData<ApiResponse> casesLiveData){
 
-        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ApiResponse>() {
+    private void subscribeToUi(){
+
+        switch (location) {
+            case "state":
+                subscribeToUiState(insightViewModel.getObsStates());
+                break;
+            case "continent":
+                subscribeToUiContinent(insightViewModel.getObsContinent());
+                break;
+            case AppUtils.COUNTRY:
+                subscribeToUiCountry(insightViewModel.getObsCountries());
+                break;
+            case AppUtils.GLOBE:
+                subscribeToUiGlobe(insightViewModel.mObsGlobal);
+                break;
+        }
+    }
+    private void subscribeToUiState(LiveData<ResponseState> casesLiveData){
+
+        refreshInsight(false);
+
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseState>() {
             @Override
-            public void onChanged(ApiResponse apiResponse) {
+            public void onChanged(ResponseState apiResponse) {
+
+                if (apiResponse == null) {
+
+                    removeText();
+
+                }
+                else {
+                    if (apiResponse.getError() == null) {
+
+                        String cases;
+                        String active;
+                        String recovered;
+                        String deaths;
+                        String updated;
+
+                        String casesToday;
+                        String deathsToday;
+                        String critical;
+                        String tested;
+
+                        State insight = apiResponse.getInsight();
+
+                        Log.v(TAG, "CASES COUNT "+apiResponse.getStates().size());
+
+
+                        cases = insight.getCases();
+                        recovered = insight.getRecovered();
+                        active = insight.getActive();
+                        deaths = insight.getDeaths();
+                        casesToday = insight.getTodayCases();
+                        deathsToday = insight.getTodayDeaths();
+                        critical = insight.getCritical();
+                        tested = insight.getTested();
+
+
+                        if(insight.getUpdated() != Long.parseLong(AppUtils.BLANK)){
+                            String  date = "Last Updated"+"\n"+getDate(insight.getUpdated());
+                            tvUpdated.setText(date);
+                        }
+                        else {
+                            tvUpdated.setVisibility(View.GONE);
+                        }
+
+
+                        tvCases.setText(cases);
+                        tvCasesToday.setText(casesToday);
+                        tvRecovered.setText(recovered);
+                        tvDeaths.setText(deaths);
+                        tvDeathsToday.setText(deathsToday);
+                        tvCritical.setText(critical);
+                        tvActive.setText(active);
+                        tvTested.setText(tested);
+
+
+
+                    } else {
+                        removeText();
+                    }
+                }
+
+            }
+        });
+
+
+    }
+
+
+    private void subscribeToUiCountry(LiveData<ResponseCountry> casesLiveData){
+
+        refreshInsight(false);
+
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseCountry>() {
+            @Override
+            public void onChanged(ResponseCountry apiResponse) {
+
+                if (apiResponse == null) {
+
+                    removeText();
+                }
+                else {
+                    if (apiResponse.getError() == null) {
+
+                        String cases;
+                        String active;
+                        String recovered;
+                        String deaths;
+                        String updated;
+
+                        String casesToday;
+                        String deathsToday;
+                        String critical;
+                        String tested;
+
+
+                        Country insight = apiResponse.getCountry();
+
+                        if(insight!=null){
+                            cases = insight.getCases();
+                            recovered = insight.getRecovered();
+                            active = insight.getActive();
+                            deaths = insight.getDeaths();
+                            casesToday = insight.getTodayCases();
+                            deathsToday = insight.getTodayDeaths();
+                            critical = insight.getCritical();
+                            tested = insight.getTested();
+
+                            updated = "Last Updated"+"\n"+getDate(insight.getUpdated());
+
+                            tvCases.setText(cases);
+                            tvCasesToday.setText(casesToday);
+                            tvRecovered.setText(recovered);
+                            tvDeaths.setText(deaths);
+                            tvDeathsToday.setText(deathsToday);
+                            tvCritical.setText(critical);
+                            tvActive.setText(active);
+                            tvTested.setText(tested);
+
+
+                            tvUpdated.setText(updated);
+                        }
+
+
+                        tvUpdated.setText(getString( R.string.insight_unavailable)+" "+userLocation.getCountry());
+
+
+                    } else {
+                        removeText();
+                    }
+                }
+
+            }
+        });
+
+
+    }
+
+    private void subscribeToUiContinent(LiveData<ResponseContinent> casesLiveData){
+
+        refreshInsight(false);
+
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseContinent>() {
+            @Override
+            public void onChanged(ResponseContinent apiResponse) {
 
                 if (apiResponse == null) {
 
@@ -244,25 +348,88 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
                         String tested;
 
 
-                            Cases aCases = apiResponse.getaCases();
+                        Continent insight = apiResponse.getContinent();
 
-                            cases = aCases.getCases();
-                            recovered = aCases.getRecovered();
-                            active = aCases.getActive();
-                            deaths = aCases.getDeaths();
-                            casesToday = aCases.getTodayCases();
-                            deathsToday = aCases.getTodayDeaths();
-                            critical = aCases.getCritical();
-                            tested = aCases.getTested();
+                        if(insight!=null){
+                            cases = insight.getCases();
+                            recovered = insight.getRecovered();
+                            active = insight.getActive();
+                            deaths = insight.getDeaths();
+                            casesToday = insight.getTodayCases();
+                            deathsToday = insight.getTodayDeaths();
+                            critical = insight.getCritical();
+                            tested = insight.getTested();
+
+                            updated = "Last Updated"+"\n"+getDate(insight.getUpdated());
+
+                            tvCases.setText(cases);
+                            tvCasesToday.setText(casesToday);
+                            tvRecovered.setText(recovered);
+                            tvDeaths.setText(deaths);
+                            tvDeathsToday.setText(deathsToday);
+                            tvCritical.setText(critical);
+                            tvActive.setText(active);
+                            tvTested.setText(tested);
 
 
-                            updated = "Last Updated"+"\n"+getDate(aCases.getUpdated());
+                            tvUpdated.setText(updated);
+                        }
 
 
+                        tvUpdated.setText(getString( R.string.insight_unavailable)+" "+userLocation.getContinent());
+
+                    } else {
+                        removeText();
+                    }
+                }
+
+            }
+        });
 
 
+    }
 
-                        tvNetwork.setVisibility(View.GONE);
+    private void subscribeToUiGlobe(LiveData<ResponseGlobe> casesLiveData){
+
+        refreshInsight(false);
+
+        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ResponseGlobe>() {
+            @Override
+            public void onChanged(ResponseGlobe apiResponse) {
+
+                if (apiResponse == null) {
+
+                    removeText();
+                }
+                else {
+                    if (apiResponse.getError() == null) {
+
+                        String cases;
+                        String active;
+                        String recovered;
+                        String deaths;
+                        String updated;
+
+                        String casesToday;
+                        String deathsToday;
+                        String critical;
+                        String tested;
+
+
+                        Globe insight = apiResponse.getGlobe();
+
+                        cases = insight.getCases();
+                        recovered = insight.getRecovered();
+                        active = insight.getActive();
+                        deaths = insight.getDeaths();
+                        casesToday = insight.getTodayCases();
+                        deathsToday = insight.getTodayDeaths();
+                        critical = insight.getCritical();
+                        tested = insight.getTested();
+
+
+                        updated = "Last Updated"+"\n"+getDate(insight.getUpdated());
+
 
                         tvCases.setText(cases);
                         tvCasesToday.setText(casesToday);
@@ -288,71 +455,6 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
 
     }
 
-    private void subscribeToUiS(LiveData<ApiResponseState> casesLiveData){
-
-        casesLiveData.observe(getViewLifecycleOwner(), new Observer<ApiResponseState>() {
-            @Override
-            public void onChanged(ApiResponseState apiResponse) {
-
-                if (apiResponse == null) {
-
-                    removeText();
-
-                }
-                else {
-                    if (apiResponse.getError() == null) {
-
-                        String cases;
-                        String active;
-                        String recovered;
-                        String deaths;
-                        String updated;
-
-                        String casesToday;
-                        String deathsToday;
-                        String critical;
-                        String tested;
-
-                            CasesState aCase = apiResponse.getCases();
-                            Log.v("subscribeToUiS", "cases List count)"+apiResponse.getCasesList().size());
-                            cases = aCase.getCases();
-                            recovered = aCase.getRecovered();
-                            active = aCase.getActive();
-                            deaths = aCase.getDeaths();
-
-                            casesToday = "--";
-                            deathsToday = "--";
-                            critical = "--";
-                            tested = "--";
-
-                            updated = "";
-
-
-                        tvNetwork.setVisibility(View.GONE);
-
-                        tvCases.setText(cases);
-                        tvCasesToday.setText(casesToday);
-                        tvRecovered.setText(recovered);
-                        tvDeaths.setText(deaths);
-                        tvDeathsToday.setText(deathsToday);
-                        tvCritical.setText(critical);
-                        tvActive.setText(active);
-                        tvTested.setText(tested);
-
-
-                        tvUpdated.setText(updated);
-
-
-                    } else {
-                        removeText();
-                    }
-                }
-
-            }
-        });
-
-
-    }
 
     private void removeText() {
 
@@ -373,39 +475,38 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
     private void setText() {
-        if (!"globe".equals(locationDataRequest)) {
+        if (!"globe".equals(location)) {
 
             fab.setEnabled(true);
             fab.setVisibility(View.VISIBLE);
 
-            fabText = "other " + locationDataRequest + "s";
+            fabText = "other " + location + "s";
 
-            if ("country".equals(locationDataRequest)) {
+            if ("country".equals(location)) {
 
-                String heading = AppController.getInstance().getCountry()+" Cases";
+                String heading = userLocation.getCountry().toUpperCase();
 
                 tvHeading.setText(heading);
 
-                fabText = "other " + locationDataRequest.substring(0,6) + "ies";
+                fabText = "other " + location.substring(0,6) + "ies";
 
             }
-            else if("state".equals(locationDataRequest)) {
-                String heading = AppController.getInstance().getState()+" Cases";
+            else if("state".equals(location)) {
+                String heading = userLocation.getState().toUpperCase();
                 tvHeading.setText(heading);
 
             }
-            else if("continent".equals(locationDataRequest)) {
-                String heading = AppController.getInstance().getContinent()+" Cases";
+            else if("continent".equals(location)) {
+                String heading = userLocation.getContinent().toUpperCase();
                 tvHeading.setText(heading);
             }
-            
+
             fab.setText(fabText);
         }
 
-       else {
+        else {
 
-            String heading = "Global Cases";
-            tvHeading.setText(heading);
+            tvHeading.setText(AppUtils.GLOBE.toUpperCase());
 
             fab.setEnabled(false);
             fab.setVisibility(View.INVISIBLE);
@@ -414,7 +515,8 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     }
 
 
-    private void refreshStats(boolean isRefresh) {
+    private void refreshInsight(boolean isRefresh) {
+
         if (isRefresh) {
             swipe.setRefreshing(true);
 
@@ -426,19 +528,15 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     @Override
     public void onRefresh() {
 
-        if(locationDataRequest.equals("state"))
-            subscribeToUiS(dashboardViewModel.getCasesStateResponse());
-        else
-            subscribeToUi(dashboardViewModel.getCasesResponse(locationDataRequest));
-
+        subscribeToUi();
     }
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentListenerMain) {
-            mListener = (OnFragmentListenerMain) context;
+        if (context instanceof FragmentInteraction) {
+            mListener = (FragmentInteraction) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -454,18 +552,11 @@ public class DashboardFragment extends Fragment implements SwipeRefreshLayout.On
     private String getDate(long milliSecond){
         // Mon, 23 Mar 2020 02:01:04 PM
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy hh:mm:ss aaa");
-
         Calendar calendar= Calendar.getInstance();
         calendar.setTimeInMillis(milliSecond);
         return formatter.format(calendar.getTime());
     }
-    // Now we can fire the event when the user selects something in the fragment
-    private void startIntent(String arguement) {
-        if (mListener != null) {
 
-                mListener.getListIntent(LIST_INTENT,arguement);
-        }
-    }
 
 
 

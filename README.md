@@ -11,7 +11,6 @@ It provides relevant information on guidelines and also Helplines for each state
  [Video demo](https://youtu.be/9q7elJWsRjg)
 
 
-
 ## lIBRARIES
 
 Live Data
@@ -27,15 +26,12 @@ Glide
 Firebase
 
 
-
-
 ## APIs
 
- [API for state cases in nigeria](https://covidnigeria.herokuapp.com/api)
+ [API for state states in nigeria](https://covidnigeria.herokuapp.com/api)
 
 
  [API for all countries and continents](https://corona.lmao.ninja/)
-
 
 
 ## OTHER FEATURES

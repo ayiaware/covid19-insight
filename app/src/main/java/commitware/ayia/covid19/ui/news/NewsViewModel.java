@@ -12,7 +12,7 @@ import androidx.lifecycle.MediatorLiveData;
 
 import androidx.lifecycle.Observer;
 
-import commitware.ayia.covid19.repositories.NewsDataRepository;
+import commitware.ayia.covid19.repositories.NewsRepository;
 
 import commitware.ayia.covid19.services.retrofit.news.NewsApiResponse;
 
@@ -27,7 +27,7 @@ public class NewsViewModel extends AndroidViewModel {
 
         super(application);
 
-        NewsDataRepository mRepository = new NewsDataRepository(application);
+        NewsRepository mRepository = new NewsRepository(application);
 
         mObservableNews = new MediatorLiveData<>();
 

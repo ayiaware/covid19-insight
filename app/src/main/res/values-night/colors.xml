@@ -21,9 +21,7 @@
 
     <color name="colorActive">#43A047</color>
 
-    <!--    <color name="colorCases">#FFA000</color>-->
-
-    <!--    <color name="colorRecovered">#0288D1</color>-->
+    <color name="popUp">#222222</color>
 
     <color name="colorDeaths">#E40404</color>
 

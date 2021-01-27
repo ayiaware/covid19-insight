@@ -36,11 +36,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import commitware.ayia.covid19.adapter.RvAdapterHelpline;
-import commitware.ayia.covid19.AppController;
-import commitware.ayia.covid19.interfaces.OnFragmentListenerMain;
-import commitware.ayia.covid19.interfaces.RVClickListener;
-import commitware.ayia.covid19.listeners.RVTouchListener;
+import commitware.ayia.covid19.adapter.RvHelplineAdapter;
+import commitware.ayia.covid19.BasicApp;
+import commitware.ayia.covid19.interfaces.FragmentInteraction;
+import commitware.ayia.covid19.interfaces.RecyclerViewClickListener;
+import commitware.ayia.covid19.utils.RVTouchListener;
 import commitware.ayia.covid19.models.Helpline;
 import commitware.ayia.covid19.R;
 
@@ -53,7 +53,7 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
     private Button btnRetry;
     private DatabaseReference rootRef;
     private DatabaseReference demoRef;
-    private OnFragmentListenerMain mListener;
+    private FragmentInteraction mListener;
 
     private String TAG = "HELPLINEFRAGMENT";
     private RecyclerView recyclerView;
@@ -90,10 +90,10 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
 
-        state = AppController.getInstance().getState();
+        state = BasicApp.getInstance().getLocation().getState();
 
         // Database reference pointing to root of database
-        rootRef = FirebaseDatabase.getInstance().getReference(AppController.getInstance().getState());
+        rootRef = FirebaseDatabase.getInstance().getReference(state);
 
        // demoRef = rootRef.child("Kaduna");
 
@@ -143,10 +143,10 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
                         helplines.add(helpline);
 
                     }
-                    RvAdapterHelpline adapterHelpline = new RvAdapterHelpline(getActivity(), helplines);
+                    RvHelplineAdapter adapterHelpline = new RvHelplineAdapter(getActivity(), helplines);
                     recyclerView.setAdapter(adapterHelpline);
 
-                    recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RVClickListener() {
+                    recyclerView.addOnItemTouchListener(new RVTouchListener(getActivity(), recyclerView, new RecyclerViewClickListener() {
                         @Override
                         public void onClick(View view, int position) {
 
@@ -262,8 +262,8 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentListenerMain) {
-            mListener = (OnFragmentListenerMain) context;
+        if (context instanceof FragmentInteraction) {
+            mListener = (FragmentInteraction) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -285,14 +285,10 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        if(AppController.getInstance().isConnected())
-        {
+
             getHelplines();
-        }
-        else{
-            Toast.makeText(getActivity(), "Offline, Update failed", Toast.LENGTH_LONG).show();
-            swipe.setRefreshing(false);
-        }
+
+
 
     }
 
@@ -301,7 +297,7 @@ public class HelplineFragment extends Fragment implements SwipeRefreshLayout.OnR
         String body = null;
         try {
             body = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-            body = "\n\n-----------------------------\nPlease don't remove this information\nState: "+AppController.getInstance().getState()+"\n"+query+"\nDevice OS: Android \n Device OS version: " +
+            body = "\n\n-----------------------------\nPlease don't remove this information\nState: "+ state+"\n"+query+"\nDevice OS: Android \n Device OS version: " +
                     Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
                     "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER;
         } catch (PackageManager.NameNotFoundException e) {

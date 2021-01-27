@@ -16,26 +16,25 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import commitware.ayia.covid19.AppController;
+import commitware.ayia.covid19.BasicApp;
 import commitware.ayia.covid19.R;
+import commitware.ayia.covid19.models.Location;
 
-import static commitware.ayia.covid19.AppUtils.LIST_REQUEST;
-import static commitware.ayia.covid19.AppUtils.LIST_TYPE;
-import static commitware.ayia.covid19.AppUtils.LIST_TYPE_LOCAL;
-import static commitware.ayia.covid19.AppUtils.LOCATION_STATE;
+import static commitware.ayia.covid19.utils.AppUtils.LIST_REQUEST;
+import static commitware.ayia.covid19.utils.AppUtils.LIST_TYPE;
+import static commitware.ayia.covid19.utils.AppUtils.LOCAL;
+import static commitware.ayia.covid19.utils.AppUtils.STATE;
 
 public class SettingsActivity extends AppCompatActivity {
 
     private static final String TITLE_TAG = "settingsActivityTitle";
 
+    private Location userLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-
-
-
 
 
         if (savedInstanceState == null) {
@@ -84,18 +83,20 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
 
+            Location userLocation = BasicApp.getInstance().getLocation();
+
                 setPreferencesFromResource(R.xml.root_preferences, rootKey);
 
                 Preference prefState = findPreference("state");
                 if (prefState != null) {
-                    prefState.setSummary(AppController.getInstance().getState());
+                    prefState.setSummary(userLocation.getState());
                     prefState.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                         public boolean onPreferenceClick(Preference preference) {
 
-                            Intent it = new Intent(getActivity(), ListActivity.class);
-                            it.putExtra(LIST_REQUEST, LOCATION_STATE);
-                            it.putExtra(LIST_TYPE, LIST_TYPE_LOCAL);
-                            startActivity(it);
+//                            Intent it = new Intent(getActivity(), ListActivity.class);
+//                            it.putExtra(LIST_REQUEST, STATE);
+//                            it.putExtra(LIST_TYPE, LOCAL);
+//                            startActivity(it);
 
                             return true;
                         }
@@ -169,9 +170,13 @@ public class SettingsActivity extends AppCompatActivity {
         String body = null;
         try {
             body = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
-            body = "\n\n-----------------------------\nPlease don't remove this information\nState: "+AppController.getInstance().getState()+"\nDevice OS: Android \n Device OS version: " +
-                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " + Build.BRAND +
-                    "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " + Build.MANUFACTURER;
+            body = "\n\n-----------------------------\nPlease don't remove this information\nState: " +
+                    BasicApp.getInstance().getLocation().getCountry() +
+                    "\nDevice OS: Android \n Device OS version: " +
+                    Build.VERSION.RELEASE + "\n App Version: " + body + "\n Device Brand: " +
+                    Build.BRAND +
+                    "\n Device Model: " + Build.MODEL + "\n Device Manufacturer: " +
+                    Build.MANUFACTURER;
         } catch (PackageManager.NameNotFoundException e) {
         }
         Intent intent = new Intent(Intent.ACTION_SEND);

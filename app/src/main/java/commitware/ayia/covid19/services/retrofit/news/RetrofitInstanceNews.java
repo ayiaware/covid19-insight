@@ -2,7 +2,7 @@ package commitware.ayia.covid19.services.retrofit.news;
 
 import java.util.concurrent.TimeUnit;
 
-import commitware.ayia.covid19.Urls;
+import commitware.ayia.covid19.utils.Urls;
 import commitware.ayia.covid19.services.retrofit.RestApiService;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

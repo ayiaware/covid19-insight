@@ -1,27 +1,36 @@
 package commitware.ayia.covid19.services.retrofit;
 
-import commitware.ayia.covid19.Urls;
-import commitware.ayia.covid19.models.Cases;
-import commitware.ayia.covid19.models.CasesWrapperState;
+import java.util.List;
+
+import commitware.ayia.covid19.utils.Urls;
+import commitware.ayia.covid19.models.StatesWrapper;
 import commitware.ayia.covid19.models.NewsWrapper;
+import commitware.ayia.covid19.models.Continent;
+import commitware.ayia.covid19.models.Country;
+import commitware.ayia.covid19.models.Globe;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RestApiService {
 
     @GET("all/")
-    Call<Cases> getCasesGlobal(@Query("yesterday") String yesterday);
+    Call<Globe> getGlobal(@Query("yesterday") String yesterday);
 
-    @GET("countries/{country}")
-    Call<Cases> getCasesCountry(@Path(value = "country", encoded = true) String country, @Query("yesterday") String yesterday);
+//    @GET("countries/{country}")
+//    Call<InsightNew> getCountry(@Path(value = "country", encoded = true) String country, @Query("yesterday") String yesterday);
+//
+//    @GET("continents/{continent}")
+//    Call<InsightNew> getContinent(@Path(value = "continent", encoded = true) String continent, @Query("yesterday") String yesterday);
 
-    @GET("continents/{continent}")
-    Call<Cases> getCasesContinent(@Path(value = "continent", encoded = true) String continent, @Query("yesterday") String yesterday);
+    @GET("countries/")
+    Call<List<Country>> getCountries(@Query("yesterday") String yesterday);
+
+    @GET("continents/")
+    Call<List<Continent>> getContinents(@Query("yesterday") String yesterday);
 
     @GET("api")
-    Call<CasesWrapperState> getCasesState();
+    Call<StatesWrapper> getStates();
 
     @GET(Urls.ENDPOINT_TOP_HEADLINE)
     Call<NewsWrapper> getNews(@Query("country") String country,

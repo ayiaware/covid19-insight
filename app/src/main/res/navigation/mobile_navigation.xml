@@ -8,7 +8,15 @@
         android:id="@+id/navigation_dashboard"
         android:name="commitware.ayia.covid19.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboard_to_listFragment"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:destination="@id/listFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_helpline"
         android:name="commitware.ayia.covid19.ui.helpline.HelplineFragment"
@@ -17,13 +25,50 @@
 
     <fragment
         android:id="@+id/navigation_info"
-        android:name="commitware.ayia.covid19.ui.info.InfoFragment"
+        android:name="commitware.ayia.covid19.ui.guideline.GuidelinesFragment"
         android:label="@string/title_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_guidelines" />
 
     <fragment
         android:id="@+id/navigation_news"
-        android:name="commitware.ayia.covid19.ui.news.FragmentNews"
+        android:name="commitware.ayia.covid19.ui.news.NewsListFragment"
         android:label="@string/title_news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news_list" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="commitware.ayia.covid19.ui.list.ListFragment"
+        tools:layout="@layout/fragment_list" >
+        <action
+            android:id="@+id/action_listFragment_to_listDetailFragment"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:destination="@id/listDetailFragment" />
+        <argument
+            android:name="location"
+            app:argType="string"
+            android:defaultValue="country" />
+        <argument
+            android:name="type"
+            app:argType="string"
+            android:defaultValue="local" />
+        <action
+            android:id="@+id/action_listFragment_to_navigation_dashboard"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popUpTo="@+id/mobile_navigation"
+            app:popUpToInclusive="true"
+            app:destination="@id/navigation_dashboard" />
+        <action
+            android:id="@+id/action_listFragment_self"
+            app:destination="@id/listFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listDetailFragment"
+        android:label="@string/title_dashboard"
+        android:name="commitware.ayia.covid19.ui.list.ListDetailFragment"
+        tools:layout="@layout/fragment_dashboard" />
 </navigation>

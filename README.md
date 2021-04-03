@@ -53,7 +53,7 @@ Change locations.
 
  ## future Updates
 
-Room for local persitance.
+Room for local persistence.
 
 More reductions to boiler plated code.
 

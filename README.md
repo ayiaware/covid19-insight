@@ -1,7 +1,7 @@
 # Covid19-Insight
 
 
-Covid19 Insight keeps track of covid 19 case in each state (only available for Nigeria), the country(195 countries), the continent (7 continents) and the world.
+Covid19 Insight keeps track of covid 19 case in each state (only available for Nigeria), countries(195 countries), continents (7 continents) and the world.
 It provides relevant information on guidelines and also Helplines for each state (only available for Nigeria). Information for all countries and continents are updated every 10 minutes by disease.sh.
 
 

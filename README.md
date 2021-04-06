@@ -60,7 +60,7 @@ Creating a web api for Guildlines and helpines and persit them locally with room
 Automated testing.
 
 
-![demo image](https://github.com/commitware/Covid19-Insight-Nigeria/blob/master/screenshot%20(6).jpg)
+![demo image](https://github.com/ayiaware/covid19-insight/blob/master/screenshot(6).jpg)
 
 
 

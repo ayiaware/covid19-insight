@@ -5,9 +5,6 @@ Covid19 Insight keeps track of covid 19 case in each state (only available for N
 It provides relevant information on guidelines and also Helplines for each state (only available for Nigeria). Information for all countries and continents are updated every 10 minutes by disease.sh.
 
 
- [Video demo](https://youtu.be/9q7elJWsRjg)
-
-
 ## lIBRARIES
 
 Live Data
